@@ -55,6 +55,7 @@ public class AddMovieController implements Initializable {
 
     public void onCreateMovieBtnPressed(ActionEvent actionEvent) {
         movieWrapper.saveMovie(movieName.getText(), movieDescription.getText(), ageChoice.getValue(), movieActors.getText(), Integer.parseInt(movieDuration.getText()));
+        loadMoviesFromDB();
     }
 
     public void onUpdateBtnPressed(ActionEvent actionEvent) {
