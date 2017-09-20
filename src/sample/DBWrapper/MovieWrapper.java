@@ -90,4 +90,55 @@ public class MovieWrapper
 
     }
 
+    public void saveMovie(String title, String description, int ageRequirement, String actors, int duration){
+
+        DBConn dbConn = new DBConn();
+        conn = dbConn.getConn();
+
+        String sqlTxt = "INSERT INTO " + TABLE + " ( `title`, `description`, `age_restriction`, `actors`, `duration`) VALUES (?,?,?,?)";
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sqlTxt);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setInt(3, ageRequirement);
+            ps.setString(4, actors);
+            ps.setInt(6, duration);
+            ps.executeUpdate();
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
+
+
+
+
+    }
+
+    /*public Movie getDataFromString(String searchedName, String searchedColumn){
+
+        DBConn dbConn = new DBConn();
+        conn = dbConn.getConn();
+
+        String sqlTxt = "SELECT * FROM " + TABLE +
+                " WHERE `id` = '" + id + "';";
+
+        Movie movie = new Movie();
+
+        return movie;
+
+    }
+
+    public Movie getDataFromInt(int integer){
+
+
+
+        Movie movie = new Movie();
+
+        return movie;
+
+    }*/
+
 }
