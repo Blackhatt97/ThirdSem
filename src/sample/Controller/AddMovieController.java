@@ -38,9 +38,7 @@ public class AddMovieController implements Initializable {
     TableColumn<Movie, String> nameCol;
     @FXML
     TableColumn<Movie, Integer> ageCol;
-    @FXML
-    TableColumn<Movie, String> availableCol;
-    //endregion
+
 
     MovieWrapper movieWrapper;
     ObservableList<Movie> movieList;
@@ -76,7 +74,7 @@ public class AddMovieController implements Initializable {
 
         nameCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         ageCol.setCellValueFactory(new PropertyValueFactory<>("ageRestriction"));
-        availableCol.setCellValueFactory(new PropertyValueFactory<>("available"));
+
     }
 
     @Override
