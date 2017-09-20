@@ -20,11 +20,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
         launch(args);
         MovieWrapper mw = new MovieWrapper();
         System.out.println(mw.getAllMovies().toString());
-
     }
 
 
