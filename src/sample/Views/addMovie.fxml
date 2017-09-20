@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="adminPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.AddMovieController">
+   <children>
+      <Button layoutX="463.0" layoutY="459.0" mnemonicParsing="false" text="Create Movie" />
+      <Button layoutX="14.0" layoutY="459.0" mnemonicParsing="false" onAction="#onBackBtnPressed" text="Back" />
+      <Label layoutX="14.0" layoutY="94.0" text="Name of the movie:" />
+      <Label layoutX="27.0" layoutY="164.0" text="Age requirement:" />
+      <Label layoutX="18.0" layoutY="222.0" text="Movie description:" />
+      <TextField fx:id="movieName" layoutX="138.0" layoutY="89.0" prefHeight="27.0" prefWidth="178.0" />
+      <ChoiceBox fx:id="ageChoice" layoutX="138.0" layoutY="159.0" prefHeight="27.0" prefWidth="178.0" />
+      <TextArea fx:id="movieDescription" layoutX="138.0" layoutY="222.0" prefHeight="91.0" prefWidth="178.0" />
+      <TextArea fx:id="movieActors" layoutX="138.0" layoutY="332.0" prefHeight="65.0" prefWidth="178.0" />
+      <Label layoutX="89.0" layoutY="332.0" text="Actors:" />
+      <Label layoutX="233.0" layoutY="33.0" prefHeight="45.0" prefWidth="235.0" text="Manage Movies">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TableView fx:id="movieTable" layoutX="386.0" layoutY="164.0" prefHeight="239.0" prefWidth="270.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Name" />
+          <TableColumn prefWidth="118.0" text="Age Requirement" />
+            <TableColumn prefWidth="75.0" text="Available" />
+        </columns>
+      </TableView>
+      <Label layoutX="462.0" layoutY="142.0" text="Existing Movies:" />
+      <Button layoutX="456.0" layoutY="416.0" mnemonicParsing="false" onAction="#onLoadMoviesBtnPressed" text="Load all movies" />
+      <Button layoutX="607.0" layoutY="459.0" mnemonicParsing="false" onAction="#onUpdateBtnPressed" prefHeight="27.0" prefWidth="73.0" text="Update" />
+   </children>
+</AnchorPane>
