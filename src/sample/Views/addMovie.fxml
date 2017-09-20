@@ -22,7 +22,7 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <TableView fx:id="movieTable" layoutX="386.0" layoutY="164.0" onMouseClicked="#onMovieTableClick" prefHeight="239.0" prefWidth="270.0">
+      <TableView fx:id="movieTable" onMouseClicked="#onMovieTableClick" layoutX="386.0" layoutY="164.0" prefHeight="239.0" prefWidth="270.0">
         <columns>
           <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
           <TableColumn fx:id="ageCol" prefWidth="118.0" text="Age Requirement" />

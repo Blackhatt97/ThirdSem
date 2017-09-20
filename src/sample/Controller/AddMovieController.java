@@ -111,4 +111,5 @@ public class AddMovieController implements Initializable {
         loadMoviesFromDB();
     }
 
+
 }
