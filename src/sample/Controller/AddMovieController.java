@@ -74,11 +74,13 @@ public class AddMovieController implements Initializable {
 
     public void onMovieTableClick(MouseEvent mouseEvent) {
         Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
-        movieName.setText(selectedMovie.getTitle());
-        movieDuration.setText(selectedMovie.getDuration() + "");
-        ageChoice.setValue(selectedMovie.getAgeRestriction());
-        movieDescription.setText(selectedMovie.getDescription());
-        movieActors.setText(selectedMovie.getActors());
+        if (selectedMovie != null) {
+            movieName.setText(selectedMovie.getTitle());
+            movieDuration.setText(selectedMovie.getDuration() + "");
+            ageChoice.setValue(selectedMovie.getAgeRestriction());
+            movieDescription.setText(selectedMovie.getDescription());
+            movieActors.setText(selectedMovie.getActors());
+        }
     }
 
     private void updateWorkScreen(String path) {
