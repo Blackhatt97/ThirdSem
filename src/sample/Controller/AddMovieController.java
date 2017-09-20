@@ -49,10 +49,6 @@ public class AddMovieController implements Initializable {
         updateWorkScreen("/sample/Views/main.fxml");
     }
 
-    public void onLoadMoviesBtnPressed(ActionEvent actionEvent) {
-        loadMoviesFromDB();
-    }
-
     public void onUpdateBtnPressed(ActionEvent actionEvent) {
 
     }
@@ -69,6 +65,7 @@ public class AddMovieController implements Initializable {
 
     void loadMoviesFromDB() {
         movieList = movieWrapper.getAllMovies();
+        movieTable.getItems().setAll(movieList);
     }
 
     void setupTableColumns() {
@@ -82,9 +79,8 @@ public class AddMovieController implements Initializable {
         movieWrapper = new MovieWrapper();
         ageNumbers = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
         ageChoice.getItems().setAll(ageNumbers);
-        loadMoviesFromDB();
         setupTableColumns();
-        movieTable.getItems().setAll(movieList);
+        loadMoviesFromDB();
     }
 
 }
