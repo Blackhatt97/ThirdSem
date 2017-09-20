@@ -116,9 +116,9 @@ public class Movie {
     @Override
     public String toString()
     {
-        return "Movie{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return "Movie>>>" + "\t" +
+                "title: " + title + "\t" +
+                ", description: " + description + "\t" +
+                '\n';
     }
 }
