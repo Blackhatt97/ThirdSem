@@ -90,6 +90,27 @@ public class MovieWrapper
 
     }
 
+    public void deleteMovie(int id)
+    {
+        DBConn dbConn = new DBConn();
+        conn = dbConn.getConn();
+
+        String sqlTxt = "DELETE * FROM " + TABLE +
+                " WHERE `id` = '" + id + "';";
+
+        try
+        {
+            PreparedStatement prepStmt =
+                    conn.prepareStatement(sqlTxt);
+            prepStmt.execute();
+            prepStmt.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void saveMovie(String title, String description, int ageRequirement, String actors, int duration){
 
         DBConn dbConn = new DBConn();
