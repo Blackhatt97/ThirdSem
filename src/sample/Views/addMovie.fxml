@@ -24,9 +24,8 @@
       </Label>
       <TableView fx:id="movieTable" layoutX="386.0" layoutY="164.0" prefHeight="239.0" prefWidth="270.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Name" />
-          <TableColumn prefWidth="118.0" text="Age Requirement" />
-            <TableColumn prefWidth="75.0" text="Available" />
+          <TableColumn prefWidth="133.0" text="Name" />
+          <TableColumn prefWidth="136.0" text="Age Requirement" />
         </columns>
       </TableView>
       <Label layoutX="462.0" layoutY="142.0" text="Existing Movies:" />
