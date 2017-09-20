@@ -5,11 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import sample.DBWrapper.MovieWrapper;
 import sample.Model.Movie;
 import sample.Model.MovieData;
 
@@ -35,17 +34,24 @@ public class AddMovieController implements Initializable {
     TextArea movieActors;
     @FXML
     TableView movieTable;
+    @FXML
+    TableColumn<Movie, String> nameCol;
+    @FXML
+    TableColumn<Movie, Integer> ageCol;
+    @FXML
+    TableColumn<Movie, String> availableCol;
     //endregion
 
-    MovieData movieData;
-    private ObservableList<Movie> movieList = FXCollections.observableArrayList();
+    MovieWrapper movieWrapper;
+    ObservableList<Movie> movieList;
+    Integer[] ageNumbers;
 
     public void onBackBtnPressed(ActionEvent actionEvent) {
         updateWorkScreen("/sample/Views/main.fxml");
     }
 
     public void onLoadMoviesBtnPressed(ActionEvent actionEvent) {
-
+        loadMoviesFromDB();
     }
 
     public void onUpdateBtnPressed(ActionEvent actionEvent) {
@@ -62,9 +68,25 @@ public class AddMovieController implements Initializable {
         }
     }
 
+    void loadMoviesFromDB() {
+        movieList = movieWrapper.getAllMovies();
+    }
+
+    void setupTableColumns() {
+
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        ageCol.setCellValueFactory(new PropertyValueFactory<>("ageRestriction"));
+        availableCol.setCellValueFactory(new PropertyValueFactory<>("available"));
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //movieList = movieData.getMovieList();
+        movieWrapper = new MovieWrapper();
+        ageNumbers = new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
+        ageChoice.getItems().setAll(ageNumbers);
+        loadMoviesFromDB();
+        setupTableColumns();
+        movieTable.getItems().setAll(movieList);
     }
 
 }
