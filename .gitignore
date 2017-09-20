@@ -27,3 +27,6 @@ hs_err_pid*
 .idea/copyright/profiles_settings.xml
 .idea/modules.xml
 .idea/workspace.xml
+.idea/ThirdSem.iml
+.idea/libraries/mysql_connector_java_5_1.xml
+.idea/vcs.xml
