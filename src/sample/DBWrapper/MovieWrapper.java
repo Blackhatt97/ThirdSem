@@ -152,7 +152,7 @@ public class MovieWrapper
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
-        String sqlTxt = "INSERT INTO " + TABLE + " ( `title`, `description`, `age_restriction`, `actors`, `duration`) VALUES (?,?,?,?)";
+        String sqlTxt = "INSERT INTO " + TABLE + " ( `title`, `description`, `age_restriction`, `actors`, `duration`) VALUES (?,?,?,?,?)";
         try
         {
             PreparedStatement ps = conn.prepareStatement(sqlTxt);
@@ -160,7 +160,7 @@ public class MovieWrapper
             ps.setString(2, description);
             ps.setInt(3, ageRequirement);
             ps.setString(4, actors);
-            ps.setInt(6, duration);
+            ps.setInt(5, duration);
             ps.executeUpdate();
             ps.close();
         }
