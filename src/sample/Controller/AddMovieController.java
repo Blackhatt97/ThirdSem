@@ -13,6 +13,8 @@ import sample.Model.Movie;
 import sample.Model.MovieData;
 
 import javafx.event.ActionEvent;
+
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,13 +29,15 @@ public class AddMovieController implements Initializable {
     @FXML
     TextField movieName;
     @FXML
+    TextField movieDuration;
+    @FXML
     ChoiceBox<Integer> ageChoice;
     @FXML
     TextArea movieDescription;
     @FXML
     TextArea movieActors;
     @FXML
-    TableView movieTable;
+    TableView<Movie> movieTable;
     @FXML
     TableColumn<Movie, String> nameCol;
     @FXML
@@ -49,8 +53,31 @@ public class AddMovieController implements Initializable {
         updateWorkScreen("/sample/Views/main.fxml");
     }
 
-    public void onUpdateBtnPressed(ActionEvent actionEvent) {
+    public void onCreateMovieBtnPressed(ActionEvent actionEvent) {
+        movieWrapper.saveMovie(movieName.getText(), movieDescription.getText(), ageChoice.getValue(), movieActors.getText(), Integer.parseInt(movieDuration.getText()));
+    }
 
+    public void onUpdateBtnPressed(ActionEvent actionEvent) {
+        Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
+        if (selectedMovie != null) {
+            selectedMovie.setTitle(movieName.getText());
+            selectedMovie.setDuration(Integer.parseInt(movieDuration.getText()));
+            selectedMovie.setAgeRestriction(ageChoice.getValue());
+            selectedMovie.setDescription(movieDescription.getText());
+            selectedMovie.setActors(movieActors.getText());
+        }
+        else {
+            //no item selected.. throw exception?
+        }
+    }
+
+    public void onMovieTableClick(MouseEvent mouseEvent) {
+        Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
+        movieName.setText(selectedMovie.getTitle());
+        movieDuration.setText(selectedMovie.getDuration() + "");
+        ageChoice.setValue(selectedMovie.getAgeRestriction());
+        movieDescription.setText(selectedMovie.getDescription());
+        movieActors.setText(selectedMovie.getActors());
     }
 
     private void updateWorkScreen(String path) {
