@@ -6,6 +6,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 
+import java.time.LocalDate;
+
 /**
  * Created by blackhatt on 19/09/2017.
  */
@@ -27,5 +29,9 @@ public class ScheduleController {
     }
 
     public void back(ActionEvent actionEvent) {
+    }
+
+    public void initialize() {
+        datePicker.setValue(LocalDate.now());
     }
 }
