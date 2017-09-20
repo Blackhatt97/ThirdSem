@@ -40,7 +40,8 @@ public class MovieWrapper
                                         resultSet.getString(2),
                                         resultSet.getInt(3),
                                         resultSet.getString(4),
-                                        resultSet.getInt(5));
+                                        resultSet.getInt(6));
+                movie.setId(resultSet.getInt(5));
                 moviesOL.add(movie);
             }
             conn.close();
@@ -52,13 +53,13 @@ public class MovieWrapper
     }
 
 
-    public Movie getMovie(int id) {
+    public Movie getMovie(int _id) {
 
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
         String sqlTxt = "SELECT * FROM " + TABLE +
-                " WHERE `id` = '" + id + "';";
+                " WHERE `id` = '" + _id + "';";
 
         try
         {
@@ -72,6 +73,7 @@ public class MovieWrapper
                 return null;
             }
 
+            int id = rs.getInt("id");
             String title = rs.getString("title");
             String description = rs.getString("description");
             int age = rs.getInt("age_restriction");
@@ -80,7 +82,10 @@ public class MovieWrapper
 
             prepStmt.close();
 
-            return new Movie(title, description, age, actors, duration);
+            Movie movie = new Movie(title, description, age, actors, duration);
+            movie.setId(id);
+
+            return movie;
         }
         catch (SQLException e)
         {
@@ -90,12 +95,43 @@ public class MovieWrapper
 
     }
 
-    public void deleteMovie(int id)
-    {
+    public void updateMovie(Movie movie) {
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
-        String sqlTxt = "DELETE * FROM " + TABLE +
+        int id = movie.getId();
+        String title = movie.getTitle();
+        String description = movie.getDescription();
+        int ageRequirement = movie.getAgeRestriction();
+        String actors = movie.getActors();
+        int duration = movie.getDuration();
+
+        String sqlTxt = "UPDATE " + TABLE + " SET title = ?, description = ?, age_restriction = ?," +
+                "actors = ?, duration = ?" +
+                " WHERE id = ?;";
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sqlTxt);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setInt(3, ageRequirement);
+            ps.setString(4, actors);
+            ps.setInt(6,id);
+            ps.setInt(5, duration);
+            ps.execute();
+            conn.close();
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteMovie(int id) {
+        DBConn dbConn = new DBConn();
+        conn = dbConn.getConn();
+
+        String sqlTxt = "DELETE FROM " + TABLE +
                 " WHERE `id` = '" + id + "';";
 
         try

@@ -66,6 +66,8 @@ public class AddMovieController implements Initializable {
             selectedMovie.setAgeRestriction(ageChoice.getValue());
             selectedMovie.setDescription(movieDescription.getText());
             selectedMovie.setActors(movieActors.getText());
+            movieWrapper.updateMovie(selectedMovie);
+            loadMoviesFromDB();
         }
         else {
             //no item selected.. throw exception?
@@ -75,7 +77,8 @@ public class AddMovieController implements Initializable {
     public void onRemoveBtnPressed(ActionEvent actionEvent) {
         Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
         if (selectedMovie != null) {
-            //movieWrapper.deleteMovie(selectedMovie.getID());
+            movieWrapper.deleteMovie(selectedMovie.getId());
+            loadMoviesFromDB();
         }
     }
 

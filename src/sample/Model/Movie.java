@@ -3,7 +3,7 @@ package sample.Model;
 import java.util.ArrayList;
 
 public class Movie {
-
+    private int id;
     private int ageRestriction;
     private String title;
     private String description;
@@ -13,7 +13,6 @@ public class Movie {
     private ArrayList<Movie> movies = new ArrayList<>();
 
     public Movie(String title, String description, int ageRestriction, String actors, int duration) {
-
         this.ageRestriction = ageRestriction;
         this.title = title;
         this.description = description;
@@ -22,6 +21,14 @@ public class Movie {
 
     }
     //GayParade on your head
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
 
     public int getAgeRestriction() {
 
