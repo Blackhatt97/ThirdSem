@@ -72,6 +72,13 @@ public class AddMovieController implements Initializable {
         }
     }
 
+    public void onRemoveBtnPressed(ActionEvent actionEvent) {
+        Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
+        if (selectedMovie != null) {
+            //movieWrapper.deleteMovie(selectedMovie.getID());
+        }
+    }
+
     public void onMovieTableClick(MouseEvent mouseEvent) {
         Movie selectedMovie = movieTable.getSelectionModel().getSelectedItem();
         if (selectedMovie != null) {

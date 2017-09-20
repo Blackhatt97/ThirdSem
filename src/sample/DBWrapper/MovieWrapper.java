@@ -132,10 +132,6 @@ public class MovieWrapper
         {
             System.out.println(e);
         }
-
-
-
-
     }
 
     /*public Movie getDataFromString(String searchedName, String searchedColumn){
