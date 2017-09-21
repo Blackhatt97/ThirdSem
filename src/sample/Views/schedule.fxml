@@ -24,7 +24,7 @@
       </TableView>
       <Label layoutX="245.0" layoutY="29.0" prefHeight="17.0" prefWidth="67.0" text="Room A" />
       <Label layoutX="522.0" layoutY="29.0" prefHeight="17.0" prefWidth="67.0" text="Room B" />
-      <Button onAction="#createButton" layoutX="42.0" layoutY="416.0" mnemonicParsing="false" text="Create" />
+      <Button onAction="#addMovieToSchedule" layoutX="42.0" layoutY="416.0" mnemonicParsing="false" text="Create" />
       <Button onAction="#back" layoutX="48.0" layoutY="459.0" mnemonicParsing="false" text="Back" />
    </children>
 </AnchorPane>

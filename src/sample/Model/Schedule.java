@@ -20,4 +20,5 @@ public class Schedule {
     public void setMovieDays(ArrayList<MovieDay> movieDays) {
         this.movieDays = movieDays;
     }
+
 }

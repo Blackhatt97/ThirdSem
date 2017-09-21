@@ -6,9 +6,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import sample.DBWrapper.ScheduleWrapper;
+import sample.Model.Movie;
 import sample.Model.MovieDay;
+import sample.Model.MovieTableObject;
 import sample.Model.Schedule;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -66,6 +69,7 @@ public class ScheduleController {
         room2Table.setItems(new MovieDay(cal).getMovieTableObjects());
 
     }
+
     private void displayMovieSchedule(LocalDate date){
         resetTables(date);
         for (int i = 0; i < scheduleRoom1.getMovieDays().size() ; i++) {
@@ -84,5 +88,25 @@ public class ScheduleController {
                 room2Table.refresh();
             }
         }
+    }
+
+    public void addMovieToSchedule () {
+
+        java.sql.Date date = java.sql.Date.valueOf(datePicker.getValue());
+        //needs conversion !!!!!!!!!!!!!!!!
+        MovieTableObject movieTableObject = (MovieTableObject) room1Table.getSelectionModel().getSelectedItem();
+
+        //testing
+        if (!movieTableObject.getMovieTitle().equals("")){
+            System.out.println(movieTableObject);
+
+        } else {
+            System.out.println("No movie");
+        }
+        //testing end
+
+        choiceBox.getSelectionModel().getSelectedItem();
+
+
     }
 }

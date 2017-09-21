@@ -5,6 +5,7 @@ import java.sql.Date;
 /**
  * Created by CIA on 20/09/2017.
  */
+
 public class MovieTableObject {
 
     java.util.Date movieBeginTimeUtil;
@@ -45,5 +46,15 @@ public class MovieTableObject {
 
     public void setMovieBeginTime(String movieBeginTime) {
         this.movieBeginTime = movieBeginTime;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "MovieTableObject{" +
+                "movieBeginTimeUtil=" + movieBeginTimeUtil +
+                ", movieBeginTime='" + movieBeginTime + '\'' +
+                ", movieTitle='" + movieTitle + '\'' +
+                '}';
     }
 }
