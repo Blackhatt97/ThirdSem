@@ -109,4 +109,7 @@ public class ScheduleController {
 
 
     }
+
+    public void removeAction(ActionEvent actionEvent) {
+    }
 }
