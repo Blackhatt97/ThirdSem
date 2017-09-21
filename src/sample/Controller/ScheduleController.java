@@ -2,15 +2,19 @@ package sample.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import sample.DBWrapper.MovieWrapper;
 import sample.DBWrapper.ScheduleWrapper;
 import sample.Model.Movie;
 import sample.Model.MovieDay;
 import sample.Model.MovieTableObject;
 import sample.Model.Schedule;
 
+import java.io.IOException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -36,12 +40,27 @@ public class ScheduleController {
 
     private Schedule scheduleRoom1;
     private Schedule scheduleRoom2;
-
+    public AnchorPane scheduleAnchor;
 
     public void createButton(ActionEvent actionEvent) {
     }
 
+    private void updateWorkScreen(String path) {
+
+        AnchorPane wpAnchor;
+        try {
+            wpAnchor = FXMLLoader.load(getClass().getResource(path));
+            scheduleAnchor.getChildren().setAll(wpAnchor);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void back(ActionEvent actionEvent) {
+
+
+        updateWorkScreen("/sample/Views/first.fxml");
+
     }
 
     public void initialize() {
@@ -104,9 +123,5 @@ public class ScheduleController {
             System.out.println("No movie");
         }
         //testing end
-
-        choiceBox.getSelectionModel().getSelectedItem();
-
-
     }
 }

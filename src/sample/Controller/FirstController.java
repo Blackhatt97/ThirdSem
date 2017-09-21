@@ -31,7 +31,10 @@ public class FirstController {
     }
 
 
-    public void customerWindow(ActionEvent actionEvent) {
+    public void staffWindow(ActionEvent actionEvent) {
+
+        updateWorkScreen("/sample/Views/booking.fxml");
+
     }
 
     public void adminWindow(ActionEvent actionEvent) {
