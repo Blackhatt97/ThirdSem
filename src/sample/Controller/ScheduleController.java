@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
+import sample.DBWrapper.MovieWrapper;
 import sample.DBWrapper.ScheduleWrapper;
 import sample.Model.Movie;
 import sample.Model.MovieDay;
@@ -16,6 +17,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+
+import static jdk.nashorn.internal.objects.NativeMath.round;
 
 /**
  * Created by blackhatt on 19/09/2017.
@@ -46,12 +50,16 @@ public class ScheduleController {
 
     public void initialize() {
 
+        MovieWrapper mw = new MovieWrapper();
+
         datePicker.setValue(LocalDate.now());
         ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
         scheduleRoom1 = scheduleWrapper.getSchedule(1);
         scheduleRoom2 = scheduleWrapper.getSchedule(2);
         LocalDate selectedDate = datePicker.getValue();
         displayMovieSchedule(selectedDate);
+
+        choiceBox.setItems(mw.getAllMovies());
 
         datePicker.setOnAction((event) -> {
             if (datePicker.getValue() != null) {
@@ -92,21 +100,132 @@ public class ScheduleController {
 
     public void addMovieToSchedule () {
 
-        java.sql.Date date = java.sql.Date.valueOf(datePicker.getValue());
-        //needs conversion !!!!!!!!!!!!!!!!
-        MovieTableObject movieTableObject = (MovieTableObject) room1Table.getSelectionModel().getSelectedItem();
+        Movie movie = (Movie) choiceBox.getSelectionModel().getSelectedItem();
+        System.out.println(movie);  //testing
 
-        //testing
-        if (!movieTableObject.getMovieTitle().equals("")){
-            System.out.println(movieTableObject);
 
-        } else {
-            System.out.println("No movie");
+        //ROOM 1 PART
+        try
+        {
+            MovieTableObject movieTableObject = (MovieTableObject) room1Table.getSelectionModel().getSelectedItem();
+            if (movieTableObject.getMovieTitle().equals("")){
+
+                Date start = movieTableObject.getMovieBeginTimeUtil();
+                int duration = movie.getDuration();
+                if (duration%60 < 31){
+                    int hours = duration/60 + 1;
+                    if (verifySpace(start, hours))
+                    {
+
+                        ScheduleWrapper sw = new ScheduleWrapper();
+                        sw.saveMovieToSchedule(movie.getId(), start, 1);
+
+                    }
+                    initialize();
+
+
+                }
+                else{
+
+                    int hours = duration/60 + 2;
+                    if (verifySpace(start, hours))
+                    {
+
+                        ScheduleWrapper sw = new ScheduleWrapper();
+                        sw.saveMovieToSchedule(movie.getId(), start, 1);
+
+                    }
+                    initialize();
+
+                }
+
+
+
+
+
+
+
+            } else {
+                System.out.println("No space here in room A");
+            }
+
+
+
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        //testing end
-
-        choiceBox.getSelectionModel().getSelectedItem();
 
 
+        //ROOM 2 PART
+        try
+        {
+            MovieTableObject movieTableObject = (MovieTableObject) room2Table.getSelectionModel().getSelectedItem();
+            if (movieTableObject.getMovieTitle().equals("")){
+
+                Date start = movieTableObject.getMovieBeginTimeUtil();
+                int duration = movie.getDuration();
+                if (duration%60 < 31){
+                    int hours = duration/60 + 1;
+                    if (verifySpace(start, hours))
+                    {
+
+                        ScheduleWrapper sw = new ScheduleWrapper();
+                        sw.saveMovieToSchedule(movie.getId(), start, 2);
+
+                    }
+                    initialize();
+
+
+                }
+                else{
+                    int hours = duration/60 + 2;
+                    if (verifySpace(start, hours))
+                    {
+
+                        ScheduleWrapper sw = new ScheduleWrapper();
+                        sw.saveMovieToSchedule(movie.getId(), start, 2);
+
+                    }
+                    initialize();
+                }
+
+                //System.out.println("HOURS: " + hours + " MINUTES: " + duration);
+
+
+
+
+
+
+            } else {
+                System.out.println("No space here in room B");
+            }
+
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
+    public boolean verifySpace(Date startMovieToAdd, int hours){
+
+        boolean verify = false;
+        int index = room1Table.getSelectionModel().getSelectedIndex();
+        for (int i = index + 1; i < index + hours ; i++)
+        {
+            room1Table.getSelectionModel().select(i);
+            MovieTableObject mto = (MovieTableObject) room1Table.getSelectionModel().getSelectedItem();
+            if (mto.getMovieTitle().equals("")){
+                verify = true;
+            }
+
+        }
+
+
+        return verify;
     }
 }

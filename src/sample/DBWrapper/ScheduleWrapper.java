@@ -10,6 +10,7 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 /**
  * Created by CIA on 20/09/2017.
@@ -17,6 +18,7 @@ import java.util.*;
 public class ScheduleWrapper {
 
     MovieWrapper movieWrapper = new MovieWrapper();
+    final String TABLE = "schedule";
 
     public Schedule getSchedule(int roomNo) {
 
@@ -109,4 +111,63 @@ public class ScheduleWrapper {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
+    public void saveMovieToSchedule (int id, Date date, int room){
+
+
+        /*String sql2 = "INSERT INTO " + TABLE + " ( `movie_id`, `date`, `room`) VALUES (?,?,?)";
+
+        try
+        {
+
+            java.sql.Timestamp name = new java.sql.Timestamp(date.getTime());
+
+            //String sql = "INSERT INTO `schedule` (`movie_id`, `date`, `room`) VALUES (?,?,?)";
+
+            DBConn dbConn = new DBConn();
+            Connection conn = dbConn.getConn();
+            PreparedStatement preparedStatement = conn.prepareStatement(sql2);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setTimestamp(2, name);
+            preparedStatement.setInt(3, room);
+
+            preparedStatement.executeUpdate(sql2);
+
+            preparedStatement.close();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }*/
+
+        DBConn db = new DBConn();
+
+        Connection connection = db.getConn();
+        String sql = "INSERT INTO schedule (movie_id, date, room) " +
+                "VALUES (?, ?, ?)";
+
+        PreparedStatement preparedStatement = null;
+
+        java.sql.Timestamp name = new java.sql.Timestamp(date.getTime());
+
+
+        try {
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setTimestamp(2, name);
+            preparedStatement.setInt(3, room);
+
+            preparedStatement.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
 }
