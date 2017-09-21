@@ -228,4 +228,7 @@ public class ScheduleController {
 
         return verify;
     }
+
+    public void removeAction(ActionEvent actionEvent) {
+    }
 }
