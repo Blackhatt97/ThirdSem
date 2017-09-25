@@ -53,6 +53,9 @@ public class BookingController implements Initializable {
     private String tempTime;
     private String tempMovieTitle;
 
+    private Schedule scheduleRoom1;
+    private Schedule scheduleRoom2;
+
     private void updateWorkScreen(String path) {
 
         AnchorPane wpAnchor;
@@ -92,10 +95,6 @@ public class BookingController implements Initializable {
     public void onDateSelect(ActionEvent actionEvent) {
         if (date.getValue() == null)
             return;
-
-        ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
-        Schedule scheduleRoom1 = scheduleWrapper.getSchedule(1);
-        Schedule scheduleRoom2 = scheduleWrapper.getSchedule(2);
 
         ObservableList<String> movieList = FXCollections.observableArrayList();
 
@@ -181,7 +180,7 @@ public class BookingController implements Initializable {
 
         Booking booking = bookingTable.getSelectionModel().getSelectedItem();
         name.setText(booking.getName());
-        //date.setValue(booking.getDate());
+        date.setValue(booking.getDate());
         //currentSeatsValue.setText("Current seats: " + booking.getSeatNumbers().size());
     }
 
@@ -219,5 +218,10 @@ public class BookingController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         addChangeListener();
         setupTableColumns();
+
+        ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
+        scheduleRoom1 = scheduleWrapper.getSchedule(1);
+        scheduleRoom2 = scheduleWrapper.getSchedule(2);
+
     }
 }
