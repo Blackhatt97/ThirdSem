@@ -172,54 +172,44 @@ public class ScheduleController {
         try
         {
             MovieTableObject movieTableObject = (MovieTableObject) room2Table.getSelectionModel().getSelectedItem();
-            if (movieTableObject.getMovieTitle().equals("")){
+            if (room2Table.getSelectionModel().getSelectedItem() != null) {
 
-                Date start = movieTableObject.getMovieBeginTimeUtil();
-                int duration = movie.getDuration();
-                if (duration%60 < 31){
-                    int hours = duration/60 + 1;
-                    if (verifySpace(start, hours))
-                    {
+                if (movieTableObject.getMovieTitle().equals("")) {
 
-                        ScheduleWrapper sw = new ScheduleWrapper();
-                        sw.saveMovieToSchedule(movie.getId(), start, 2);
+                    Date start = movieTableObject.getMovieBeginTimeUtil();
+                    int duration = movie.getDuration();
+                    if (duration % 60 < 31) {
+                        int hours = duration / 60 + 1;
+                        if (verifySpace(start, hours)) {
 
+                            ScheduleWrapper sw = new ScheduleWrapper();
+                            sw.saveMovieToSchedule(movie.getId(), start, 2);
+
+                        }
+                        initialize();
+
+
+                    } else {
+                        int hours = duration / 60 + 2;
+                        if (verifySpace(start, hours)) {
+
+                            ScheduleWrapper sw = new ScheduleWrapper();
+                            sw.saveMovieToSchedule(movie.getId(), start, 2);
+
+                        }
+                        initialize();
                     }
-                    initialize();
 
+                    //System.out.println("HOURS: " + hours + " MINUTES: " + duration);
 
+                } else {
+                    System.out.println("No space here in room B");
                 }
-                else{
-                    int hours = duration/60 + 2;
-                    if (verifySpace(start, hours))
-                    {
-
-                        ScheduleWrapper sw = new ScheduleWrapper();
-                        sw.saveMovieToSchedule(movie.getId(), start, 2);
-
-                    }
-                    initialize();
-                }
-
-                //System.out.println("HOURS: " + hours + " MINUTES: " + duration);
-
-
-
-
-
-
-            } else {
-                System.out.println("No space here in room B");
             }
-
-
 
         } catch (Exception e){
             e.printStackTrace();
         }
-
-
-
 
     }
 
