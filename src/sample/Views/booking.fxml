@@ -14,7 +14,7 @@
 <AnchorPane fx:id="staffAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.BookingController">
    <children>
       <Button layoutX="23.0" layoutY="459.0" mnemonicParsing="false" onAction="#addBookingBtn" text="Add" />
-      <TableView fx:id="bookingTable" layoutX="286.0" layoutY="38.0" prefHeight="403.0" prefWidth="395.0">
+      <TableView fx:id="bookingTable" layoutX="286.0" layoutY="38.0" onMouseClicked="#onTableClick" prefHeight="403.0" prefWidth="395.0">
         <columns>
           <TableColumn fx:id="nameCol" prefWidth="92.0" text="Name" />
           <TableColumn fx:id="dateCol" prefWidth="98.0" text="Date" />
@@ -30,7 +30,8 @@
       <Button layoutX="629.0" layoutY="459.0" mnemonicParsing="false" onAction="#goBackBtn" text="Back" />
       <Button layoutX="80.0" layoutY="459.0" mnemonicParsing="false" onAction="#updateBookingBtn" text="Update" />
       <Button layoutX="156.0" layoutY="459.0" mnemonicParsing="false" onAction="#cancelBookingBtn" text="Cancel" />
-      <Button layoutX="112.0" layoutY="324.0" mnemonicParsing="false" onAction="#chooseSeatsBtn" prefHeight="59.0" prefWidth="116.0" text="Choose seats" />
+      <Button layoutX="91.0" layoutY="306.0" mnemonicParsing="false" onAction="#chooseSeatsBtn" prefHeight="59.0" prefWidth="116.0" text="Choose seats" />
       <ChoiceBox fx:id="availableMovies" layoutX="76.0" layoutY="237.0" prefHeight="27.0" prefWidth="187.0" />
+      <Label fx:id="currentSeatsValue" alignment="CENTER" contentDisplay="CENTER" layoutX="76.0" layoutY="389.0" prefHeight="21.0" prefWidth="147.0" text="Current seats: 0" textAlignment="CENTER" />
    </children>
 </AnchorPane>

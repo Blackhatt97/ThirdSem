@@ -41,9 +41,10 @@ public class BookingWrapper {
                 for (int i = 0; i < str.length; i++) {
                     seats.add(Integer.parseInt(str[i]));
                 }
-                Booking book = new Booking(rs.getString(1), seats, cal, rs.getString(4));
+                //Fix later
+                //Booking book = new Booking(rs.getString(1), seats, cal, rs.getString(4));
 
-                bookingOL.add(book);
+                //bookingOL.add(book);
 
             }
 

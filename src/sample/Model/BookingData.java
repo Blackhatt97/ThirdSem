@@ -8,10 +8,10 @@ import javafx.collections.ObservableList;
  */
 public class BookingData {
 
+    //fuck you thats why
+    public static ObservableList<Booking> bookingList = FXCollections.observableArrayList();
 
-    private ObservableList<Movie> bookingList = FXCollections.observableArrayList();
-
-    public ObservableList<Movie> getBookingList() {
+    public ObservableList<Booking> getBookingList() {
         return bookingList;
     }
 }

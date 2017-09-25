@@ -1,5 +1,6 @@
 package sample.Model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -9,15 +10,18 @@ import java.util.Calendar;
 public class Booking {
 
     private String name;
-    private ArrayList<Integer> noOfSeats = null;
+    private ArrayList<Integer> seatNumbers = null;
     private Calendar cal;
-    private String movieName;
+    private LocalDate date;
+    private String time;
+    private String movieTitle;
 
-    public Booking(String name, ArrayList<Integer> noOfSeats, Calendar cal, String movieName) {
+    public Booking(String name, ArrayList<Integer> seatNumbers, LocalDate date, String time, String movieTitle) {
         this.name = name;
-        this.noOfSeats = noOfSeats;
-        this.cal = cal;
-        this.movieName = movieName;
+        this.seatNumbers = seatNumbers;
+        this.date = date;
+        this.time = time;
+        this.movieTitle = movieTitle;
 
     }
 
@@ -29,12 +33,12 @@ public class Booking {
         this.name = name;
     }
 
-    public ArrayList<Integer> getNoOfSeats() {
-        return noOfSeats;
+    public ArrayList<Integer> getSeatNumbers() {
+        return seatNumbers;
     }
 
-    public void setNoOfSeats(ArrayList<Integer> noOfSeats) {
-        this.noOfSeats = noOfSeats;
+    public void setSeatNumbers(ArrayList<Integer> seatNumbers) {
+        this.seatNumbers = seatNumbers;
     }
 
     public Calendar getCal() {
@@ -45,4 +49,31 @@ public class Booking {
         this.cal = cal;
     }
 
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
+    }
+
+    public LocalDate getDate()
+    {
+        return date;
+    }
+
+    public void setDate(LocalDate date)
+    {
+        this.date = date;
+    }
+
+    public String getTime()
+    {
+        return time;
+    }
+
+    public void setTime(String time)
+    {
+        this.time = time;
+    }
 }
