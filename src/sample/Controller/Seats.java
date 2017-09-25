@@ -252,19 +252,5 @@ public class Seats extends Application
 
     }
 
-    private void updateWorkScreen(String path) {
-
-        Scene scene = new Scene(border, 500, 700);
-        Stage primaryStage = (Stage)border.getScene().getWindow();
-        primaryStage.setScene(scene);
-
-        AnchorPane wpAnchor;
-        try {
-            wpAnchor = FXMLLoader.load(getClass().getResource(path));
-            border.getChildren().setAll(wpAnchor);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
     public static void main(String[] args) { launch(args); }
 }
