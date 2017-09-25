@@ -48,4 +48,7 @@ public class BookingController {
 
     public void cancelBookingBtn(ActionEvent actionEvent) {
     }
+
+    public void chooseSeats(ActionEvent actionEvent) {
+    }
 }
