@@ -127,48 +127,41 @@ public class ScheduleController {
         try
         {
             MovieTableObject movieTableObject = (MovieTableObject) room1Table.getSelectionModel().getSelectedItem();
-            if (movieTableObject.getMovieTitle().equals("")){
+            if (room1Table.getSelectionModel().getSelectedItem() != null) {
+                if (movieTableObject.getMovieTitle().equals("")) {
 
-                Date start = movieTableObject.getMovieBeginTimeUtil();
-                int duration = movie.getDuration();
-                if (duration%60 < 31){
-                    int hours = duration/60 + 1;
-                    if (verifySpace(start, hours))
-                    {
+                    Date start = movieTableObject.getMovieBeginTimeUtil();
+                    int duration = movie.getDuration();
+                    if (duration % 60 < 31) {
+                        int hours = duration / 60 + 1;
+                        if (verifySpace(start, hours)) {
 
-                        ScheduleWrapper sw = new ScheduleWrapper();
-                        sw.saveMovieToSchedule(movie.getId(), start, 1);
+                            ScheduleWrapper sw = new ScheduleWrapper();
+                            sw.saveMovieToSchedule(movie.getId(), start, 1);
+
+                        }
+                        initialize();
+
+
+                    } else {
+
+                        int hours = duration / 60 + 2;
+                        if (verifySpace(start, hours)) {
+
+                            ScheduleWrapper sw = new ScheduleWrapper();
+                            sw.saveMovieToSchedule(movie.getId(), start, 1);
+
+                        }
+                        initialize();
 
                     }
-                    initialize();
 
 
-                }
-                else{
-
-                    int hours = duration/60 + 2;
-                    if (verifySpace(start, hours))
-                    {
-
-                        ScheduleWrapper sw = new ScheduleWrapper();
-                        sw.saveMovieToSchedule(movie.getId(), start, 1);
-
-                    }
-                    initialize();
-
+                } else {
+                    System.out.println("No space here in room A");
                 }
 
-
-
-
-
-
-
-            } else {
-                System.out.println("No space here in room A");
             }
-
-
 
         } catch (Exception e){
             e.printStackTrace();
