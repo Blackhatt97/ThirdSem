@@ -6,7 +6,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ScheduleController">
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:id="scheduleAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ScheduleController">
@@ -29,5 +35,8 @@
       <Label layoutX="522.0" layoutY="29.0" prefHeight="17.0" prefWidth="67.0" text="Room B" />
       <Button layoutX="42.0" layoutY="416.0" mnemonicParsing="false" onAction="#addMovieToSchedule" text="Create" />
       <Button layoutX="48.0" layoutY="459.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button layoutX="42.0" layoutY="416.0" mnemonicParsing="false" onAction="#addMovieToSchedule" text="Create" />
+      <Button layoutX="48.0" layoutY="459.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button fx:id="removeButton" layoutX="19.0" layoutY="374.0" mnemonicParsing="false" onAction="#removeAction" text="Remove Movie" />
    </children>
 </AnchorPane>
