@@ -1,30 +1,38 @@
 package sample.DBWrapper;
 
-import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
 import sample.Model.Movie;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Created by blackhatt on 21/09/2017.
+ * Created by blackhatt on 25/09/2017.
  */
 class MovieWrapperTest {
-    MovieWrapper movieWrapper = new MovieWrapper();
-    ObservableList<Movie> ol = movieWrapper.getAllMovies();
 
-    @org.junit.jupiter.api.Test
+    MovieWrapper mr = new MovieWrapper();
+    @Test
     void getAllMovies() {
-        assertIterableEquals(ol,ol);
+        assertNotEquals(null, mr.getAllMovies() );
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getMovie() {
+
+        assertNotEquals(null, mr.getMovie(1));
+        assertEquals("as", mr.getMovie(2));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void updateMovie() {
+    }
+
+    @Test
+    void deleteMovie() {
+    }
+
+    @Test
     void saveMovie() {
-
-
     }
 
 }
