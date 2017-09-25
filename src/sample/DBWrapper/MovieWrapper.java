@@ -13,8 +13,8 @@ import java.sql.SQLException;
 /**
  * Created by Jakub on 19.09.2017.
  */
-public class MovieWrapper
-{
+public class MovieWrapper {
+
     private static final String TABLE = "movies";
     private static MovieWrapper thisWrapper;
     Connection conn = null;
@@ -84,7 +84,7 @@ public class MovieWrapper
 
             Movie movie = new Movie(title, description, age, actors, duration);
             movie.setId(id);
-
+            conn.close();
             return movie;
         }
         catch (SQLException e)
@@ -140,6 +140,7 @@ public class MovieWrapper
                     conn.prepareStatement(sqlTxt);
             prepStmt.execute();
             prepStmt.close();
+            conn.close();
         }
         catch (SQLException e)
         {
@@ -147,7 +148,7 @@ public class MovieWrapper
         }
     }
 
-    public void saveMovie(String title, String description, int ageRequirement, String actors, int duration){
+    public Movie saveMovie(String title, String description, int ageRequirement, String actors, int duration){
 
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
@@ -163,11 +164,14 @@ public class MovieWrapper
             ps.setInt(5, duration);
             ps.executeUpdate();
             ps.close();
+            conn.close();
+            return new Movie(title,description, ageRequirement,actors, duration);
         }
         catch (SQLException e)
         {
             System.out.println(e);
         }
+        return null;
     }
 
     /*public Movie getDataFromString(String searchedName, String searchedColumn){

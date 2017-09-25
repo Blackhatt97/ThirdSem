@@ -1,16 +1,21 @@
 package sample.DBWrapper;
 
+import com.mysql.jdbc.*;
 import sample.Model.Movie;
 import sample.Model.MovieDay;
+import sample.Model.MovieTableObject;
 import sample.Model.Schedule;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.Date;
+
 
 /**
  * Created by CIA on 20/09/2017.
@@ -93,7 +98,7 @@ public class ScheduleWrapper {
                 }
 
 
-                }
+            }
 
             conn.close();
         } catch (SQLException e) {
@@ -112,7 +117,7 @@ public class ScheduleWrapper {
         return bd.doubleValue();
     }
 
-    public void saveMovieToSchedule (int id, Date date, int room){
+    public void saveMovieToSchedule (int id, java.util.Date date, int room){
 
 
         /*String sql2 = "INSERT INTO " + TABLE + " ( `movie_id`, `date`, `room`) VALUES (?,?,?)";
@@ -170,4 +175,23 @@ public class ScheduleWrapper {
 
 
 
+
+   /* public void cancelMovieFromSchedule(MovieDay movieDay, MovieTableObject mto) {
+
+
+        String query = "DELETE FROM 'schedule' WHERE 'date' = ?, 'room ' = ?";
+
+        Connection conn;
+        try {
+
+            DBConn dbConn = new DBConn();
+            conn = dbConn.getConn();
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setDate(1, (Date) movieDay.getCal().getTime());
+            preparedStatement.setString(2,);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }*/
 }
