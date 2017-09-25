@@ -26,7 +26,7 @@ public class BookingController {
     public void addBookingBtn(ActionEvent actionEvent) {
     }
 
-    public void chooseSeatsBtn(ActionEvent actionEvent) {
+    public void chooseSeats(ActionEvent actionEvent) {
         Seats seats = new Seats();
         try
         {
@@ -49,6 +49,4 @@ public class BookingController {
     public void cancelBookingBtn(ActionEvent actionEvent) {
     }
 
-    public void chooseSeats(ActionEvent actionEvent) {
-    }
 }
