@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="staffAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.BookingController">
+   <children>
+      <Button layoutX="25.0" layoutY="305.0" mnemonicParsing="false" onAction="#addBookingBtn" text="Add" />
+      <TableView layoutX="320.0" layoutY="14.0" prefHeight="228.0" prefWidth="266.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Name" />
+          <TableColumn prefWidth="75.0" text="Date" />
+            <TableColumn prefWidth="75.0" text="Movie" />
+        </columns>
+      </TableView>
+      <Label layoutX="24.0" layoutY="23.0" text="Name:" />
+      <TextField fx:id="name" layoutX="86.0" layoutY="18.0" />
+      <DatePicker fx:id="date" layoutX="86.0" layoutY="75.0" prefHeight="31.0" prefWidth="187.0" />
+      <Label layoutX="28.0" layoutY="80.0" text="Date:" />
+      <Label layoutX="26.0" layoutY="140.0" text="Movie:" />
+      <TextField fx:id="movieName" layoutX="86.0" layoutY="135.0" prefHeight="31.0" prefWidth="187.0" />
+      <Button layoutX="509.0" layoutY="305.0" mnemonicParsing="false" onAction="#goBackBtn" text="Back" />
+      <Button layoutX="126.0" layoutY="305.0" mnemonicParsing="false" onAction="#updateBookingBtn" text="Update" />
+      <Button layoutX="241.0" layoutY="305.0" mnemonicParsing="false" onAction="#cancelBookingBtn" text="Cancel" />
+   </children>
+</AnchorPane>
