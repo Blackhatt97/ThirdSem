@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.Timer;
 
 import static jdk.nashorn.internal.objects.NativeMath.round;
+import static jdk.nashorn.internal.runtime.ScriptObject.setGlobalObjectProto;
 
 /**
  * Created by blackhatt on 19/09/2017.
@@ -177,10 +178,11 @@ public class ScheduleController {
                 if (movieTableObject.getMovieTitle().equals("")) {
 
                     Date start = movieTableObject.getMovieBeginTimeUtil();
+                    System.out.println("ROOM2 START TIME MOVIE" + start.toString());
                     int duration = movie.getDuration();
                     if (duration % 60 < 31) {
                         int hours = duration / 60 + 1;
-                        if (verifySpace(start, hours)) {
+                        if (verifySpace2(start, hours)) {
 
                             ScheduleWrapper sw = new ScheduleWrapper();
                             sw.saveMovieToSchedule(movie.getId(), start, 2);
@@ -191,7 +193,7 @@ public class ScheduleController {
 
                     } else {
                         int hours = duration / 60 + 2;
-                        if (verifySpace(start, hours)) {
+                        if (verifySpace2(start, hours)) {
 
                             ScheduleWrapper sw = new ScheduleWrapper();
                             sw.saveMovieToSchedule(movie.getId(), start, 2);
@@ -221,6 +223,24 @@ public class ScheduleController {
         {
             room1Table.getSelectionModel().select(i);
             MovieTableObject mto = (MovieTableObject) room1Table.getSelectionModel().getSelectedItem();
+            if (mto.getMovieTitle().equals("")){
+                verify = true;
+            }
+
+        }
+
+
+        return verify;
+    }
+
+    public boolean verifySpace2(Date startMovieToAdd, int hours){
+
+        boolean verify = false;
+        int index = room2Table.getSelectionModel().getSelectedIndex();
+        for (int i = index + 1; i < index + hours ; i++)
+        {
+            room2Table.getSelectionModel().select(i);
+            MovieTableObject mto = (MovieTableObject) room2Table.getSelectionModel().getSelectedItem();
             if (mto.getMovieTitle().equals("")){
                 verify = true;
             }
