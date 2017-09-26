@@ -95,7 +95,7 @@ public class MovieWrapper {
 
     }
 
-    public void updateMovie(Movie movie) {
+    public boolean updateMovie(Movie movie) {
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
@@ -120,14 +120,16 @@ public class MovieWrapper {
             ps.setInt(5, duration);
             ps.execute();
             conn.close();
+            return true;
         }
         catch (SQLException e)
         {
             System.out.println(e);
+            return false;
         }
     }
 
-    public void deleteMovie(int id) {
+    public boolean deleteMovie(int id) {
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
@@ -141,10 +143,12 @@ public class MovieWrapper {
             prepStmt.execute();
             prepStmt.close();
             conn.close();
+            return true;
         }
         catch (SQLException e)
         {
             e.printStackTrace();
+            return false;
         }
     }
 

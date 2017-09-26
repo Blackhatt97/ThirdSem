@@ -56,7 +56,7 @@ public class BookingWrapper {
         return null;
     }
 
-    public void deleteBooking(int id){
+    public boolean deleteBooking(int id){
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
@@ -69,10 +69,12 @@ public class BookingWrapper {
             prepStmt.execute();
             prepStmt.close();
             conn.close();
+            return true;
         }
         catch (SQLException e)
         {
             e.printStackTrace();
+            return false;
         }
 
     }
