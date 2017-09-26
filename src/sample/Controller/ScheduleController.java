@@ -73,9 +73,10 @@ public class ScheduleController {
         MovieWrapper mw = new MovieWrapper();
 
         datePicker.setValue(LocalDate.now());
-        ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
-        scheduleRoom1 = scheduleWrapper.getSchedule(1);
-        scheduleRoom2 = scheduleWrapper.getSchedule(2);
+
+        scheduleRoom1 = Schedule.scheduleRoomA;
+        scheduleRoom2 = Schedule.scheduleRoomB;
+
         LocalDate selectedDate = datePicker.getValue();
         displayMovieSchedule(selectedDate);
 

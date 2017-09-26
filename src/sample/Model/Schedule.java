@@ -7,6 +7,9 @@ import java.util.ArrayList;
  */
 public class Schedule {
 
+    public static Schedule scheduleRoomA;
+    public static Schedule scheduleRoomB;
+
     private ArrayList<MovieDay> movieDays;
 
     public Schedule(ArrayList<MovieDay> movieDays) {
