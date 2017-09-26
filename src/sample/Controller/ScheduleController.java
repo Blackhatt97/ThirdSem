@@ -68,14 +68,12 @@ public class ScheduleController {
 
     }
 
-    public void initialize() {
-
+    private void populateTables(){
         MovieWrapper mw = new MovieWrapper();
+        ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
+        scheduleRoom1 = scheduleWrapper.getSchedule(1);
+        scheduleRoom2 = scheduleWrapper.getSchedule(2);
 
-        datePicker.setValue(LocalDate.now());
-
-        scheduleRoom1 = Schedule.scheduleRoomA;
-        scheduleRoom2 = Schedule.scheduleRoomB;
 
         LocalDate selectedDate = datePicker.getValue();
         displayMovieSchedule(selectedDate);
@@ -87,6 +85,15 @@ public class ScheduleController {
                 displayMovieSchedule(datePicker.getValue());
             }
         });
+    }
+
+    public void initialize() {
+
+
+        scheduleRoom1 = Schedule.scheduleRoomA;
+        scheduleRoom2 = Schedule.scheduleRoomB;
+        datePicker.setValue(LocalDate.now());
+        populateTables();
 
 
     }
@@ -142,8 +149,7 @@ public class ScheduleController {
                             sw.saveMovieToSchedule(movie.getId(), start, 1);
 
                         }
-                        initialize();
-
+                        populateTables();
 
                     } else {
 
@@ -154,7 +160,7 @@ public class ScheduleController {
                             sw.saveMovieToSchedule(movie.getId(), start, 1);
 
                         }
-                        initialize();
+                        populateTables();
 
                     }
 
@@ -189,7 +195,7 @@ public class ScheduleController {
                             sw.saveMovieToSchedule(movie.getId(), start, 2);
 
                         }
-                        initialize();
+                        populateTables();
 
 
                     } else {
@@ -200,7 +206,7 @@ public class ScheduleController {
                             sw.saveMovieToSchedule(movie.getId(), start, 2);
 
                         }
-                        initialize();
+                        populateTables();
                     }
 
                     //System.out.println("HOURS: " + hours + " MINUTES: " + duration);
