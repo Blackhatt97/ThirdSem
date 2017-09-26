@@ -25,6 +25,27 @@ public class ScheduleWrapper {
     MovieWrapper movieWrapper = new MovieWrapper();
     final String TABLE = "schedule";
 
+    public void removeMovieSchedule(int scheduleID){
+
+        String sql = "DELETE * FROM schedule WHERE ID='" + scheduleID + "'";
+
+        DBConn dbConn = new DBConn();
+        Connection conn = dbConn.getConn();
+
+        try
+        {
+            PreparedStatement prepStmt = conn.prepareStatement(sql);
+            prepStmt.execute();
+            prepStmt.close();
+            conn.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
     public Schedule getSchedule(int roomNo) {
 
         Schedule schedule = null;
@@ -76,6 +97,7 @@ public class ScheduleWrapper {
                     if (currentDateCal.get(Calendar.HOUR_OF_DAY) == currentHour.get(Calendar.HOUR_OF_DAY)){
                         Movie movie = movieWrapper.getMovie(resultSet.getInt(2));
                         movieDay.getMovieTableObjects().get(i).setMovieTitle(movie.getTitle());
+                        movieDay.getMovieTableObjects().get(i).setId(resultSet.getInt(1));
                         System.out.println("TITLE: " + movieDay.getMovieTableObjects().get(i).getMovieTitle() +
                         " TIME: " + movieDay.getMovieTableObjects().get(i).getMovieBeginTimeUtil().toString());
                         double duration = movie.getDuration() + 30;

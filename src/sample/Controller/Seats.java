@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Pagination;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -26,24 +23,25 @@ import javafx.stage.Stage;
 import sample.Main;
 import sample.Model.Booking;
 
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
-
 /**
  * Created by Jakub on 25.09.2017.
  */
 public class Seats extends Application
 {
-    String theater1 = "20x__16x\n.20x__16x\n__18x__14x\n.20x__16x\n5x_________________16x\n.20x__16x\n20x__16x\n";
+    String theater1 = "20x__16x\n.20x__16x\n__18x__14x\n.20x__16x\n20x__16x\n.20x__16x\n20x__16x\n";
     String theater2 = "11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n\n11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n";
 
     public ArrayList<Integer> takenSeatsRoomA = new ArrayList();
     public ArrayList<Integer> takenSeatsRoomB = new ArrayList();
+
 
     BorderPane border = new BorderPane();
 
@@ -75,12 +73,13 @@ public class Seats extends Application
                 pillow.setStroke(Color.rgb(30, 40, 40));
                 getChildren().add(pillow);
 
-                Text lable = new Text("TAKEN");
-                lable.setFont(lable.getFont().font(12));
-                lable.setTextAlignment(TextAlignment.CENTER);
-                lable.setTextOrigin(VPos.CENTER);
-                lable.setLayoutX(-lable.getLayoutBounds().getWidth()/2);
-                getChildren().add(lable);
+                Text label = new Text("TAKEN");
+                label.setFont(label.getFont().font(12));
+                label.setTextAlignment(TextAlignment.CENTER);
+                label.setTextOrigin(VPos.CENTER);
+                label.setLayoutX(-label.getLayoutBounds().getWidth()/2);
+                getChildren().add(label);
+
             }
 
             else
@@ -93,12 +92,12 @@ public class Seats extends Application
                 pillow.setStroke(Color.rgb(0, 0, 0)); // was 30 40 40
                 getChildren().add(pillow);
 
-                Text lable = new Text("" + no);
-                lable.setFont(lable.getFont().font(12));
-                lable.setTextAlignment(TextAlignment.CENTER);
-                lable.setTextOrigin(VPos.CENTER);
-                lable.setLayoutX(-lable.getLayoutBounds().getWidth() / 2);
-                getChildren().add(lable);
+                Text label = new Text("" + no);
+                label.setFont(label.getFont().font(12));
+                label.setTextAlignment(TextAlignment.CENTER);
+                label.setTextOrigin(VPos.CENTER);
+                label.setLayoutX(-label.getLayoutBounds().getWidth() / 2);
+                getChildren().add(label);
 
                 iamReserved.addListener((e, o, n) -> {
                     pillow.setFill(n ? reservedColor : freeColor);
@@ -188,6 +187,8 @@ public class Seats extends Application
                 public void handle(javafx.event.ActionEvent event)
                 {
                     System.out.println("pressed");
+                    //add sheiiiit--
+
                     try
                     {
                         Parent root = FXMLLoader.load(getClass().getResource("/sample/Views/booking.fxml"));

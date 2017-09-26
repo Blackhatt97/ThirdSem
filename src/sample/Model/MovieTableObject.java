@@ -9,6 +9,7 @@ import java.sql.Date;
 public class MovieTableObject {
 
     java.util.Date movieBeginTimeUtil;
+    int id;
     String movieBeginTime;
     String movieTitle;
 
@@ -18,6 +19,14 @@ public class MovieTableObject {
         this.movieTitle = movieTitle;
         this.movieBeginTime = movieBeginTimeUtil.toString().substring(11, 20);
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public java.util.Date getMovieBeginTimeUtil() {
