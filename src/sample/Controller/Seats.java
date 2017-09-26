@@ -1,13 +1,16 @@
 package sample.Controller;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Pagination;
@@ -17,7 +20,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import sample.Main;
+import sample.Model.Booking;
 
+<<<<<<< HEAD
+=======
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+>>>>>>> 050df41e6b14dec28622d001076111c825730933
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -32,6 +43,13 @@ public class Seats extends Application
     public ArrayList<Integer> takenSeatsRoomA = new ArrayList();
     public ArrayList<Integer> takenSeatsRoomB = new ArrayList();
 
+<<<<<<< HEAD
+=======
+    BorderPane border = new BorderPane();
+
+
+
+>>>>>>> 050df41e6b14dec28622d001076111c825730933
 
     static class Seat extends Group
     {
@@ -172,7 +190,21 @@ public class Seats extends Application
                 public void handle(javafx.event.ActionEvent event)
                 {
                     System.out.println("pressed");
+<<<<<<< HEAD
                     //add sheiiiit--
+=======
+                    try
+                    {
+                        Parent root = FXMLLoader.load(getClass().getResource("/sample/Views/booking.fxml"));
+                        Stage primaryStage = (Stage)buttonBack.getScene().getWindow();
+                        primaryStage.setTitle("Hello Bogdan"); //change title later
+                        primaryStage.setScene(new Scene(root,700,500));
+                        primaryStage.show();
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+>>>>>>> 050df41e6b14dec28622d001076111c825730933
                 }
             });
 
@@ -207,10 +239,10 @@ public class Seats extends Application
 
         primaryStage.setTitle("Background of Panes");
 
-        BorderPane border = new BorderPane();
         Pagination pages = new Pagination();
         Scene scene = new Scene(border, 1800, 550, Color.WHITE);
         primaryStage.setScene(scene);
+
 
         addTab("1", theater(new Pane(), theater1, takenSeatsRoomA, "theater1"));
         addTab("2", theater(new Pane(), theater2, takenSeatsRoomB, "theater2"));
