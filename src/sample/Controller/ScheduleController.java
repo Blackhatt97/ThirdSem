@@ -67,12 +67,9 @@ public class ScheduleController {
         updateWorkScreen("/sample/Views/first.fxml");
 
     }
-
-    public void initialize() {
-
+    public void populateTables(){
         MovieWrapper mw = new MovieWrapper();
 
-        datePicker.setValue(LocalDate.now());
         ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
         scheduleRoom1 = scheduleWrapper.getSchedule(1);
         scheduleRoom2 = scheduleWrapper.getSchedule(2);
@@ -86,7 +83,12 @@ public class ScheduleController {
                 displayMovieSchedule(datePicker.getValue());
             }
         });
+    }
+    public void initialize() {
 
+
+        datePicker.setValue(LocalDate.now());
+        populateTables();
 
     }
     private void resetTables(LocalDate currD){
@@ -141,8 +143,7 @@ public class ScheduleController {
                             sw.saveMovieToSchedule(movie.getId(), start, 1);
 
                         }
-                        initialize();
-
+                        populateTables();
 
                     } else {
 
@@ -153,8 +154,7 @@ public class ScheduleController {
                             sw.saveMovieToSchedule(movie.getId(), start, 1);
 
                         }
-                        initialize();
-
+                        populateTables();
                     }
 
 
@@ -188,7 +188,7 @@ public class ScheduleController {
                             sw.saveMovieToSchedule(movie.getId(), start, 2);
 
                         }
-                        initialize();
+                        populateTables();
 
 
                     } else {
@@ -199,7 +199,7 @@ public class ScheduleController {
                             sw.saveMovieToSchedule(movie.getId(), start, 2);
 
                         }
-                        initialize();
+                        populateTables();
                     }
 
                     //System.out.println("HOURS: " + hours + " MINUTES: " + duration);
@@ -228,7 +228,6 @@ public class ScheduleController {
             }
 
         }
-
 
         return verify;
     }

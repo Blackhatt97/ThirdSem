@@ -23,12 +23,11 @@ import javafx.stage.Stage;
 import sample.Main;
 import sample.Model.Booking;
 
-<<<<<<< HEAD
-=======
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
->>>>>>> 050df41e6b14dec28622d001076111c825730933
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -43,13 +42,11 @@ public class Seats extends Application
     public ArrayList<Integer> takenSeatsRoomA = new ArrayList();
     public ArrayList<Integer> takenSeatsRoomB = new ArrayList();
 
-<<<<<<< HEAD
-=======
+
     BorderPane border = new BorderPane();
 
 
 
->>>>>>> 050df41e6b14dec28622d001076111c825730933
 
     static class Seat extends Group
     {
@@ -190,9 +187,8 @@ public class Seats extends Application
                 public void handle(javafx.event.ActionEvent event)
                 {
                     System.out.println("pressed");
-<<<<<<< HEAD
                     //add sheiiiit--
-=======
+
                     try
                     {
                         Parent root = FXMLLoader.load(getClass().getResource("/sample/Views/booking.fxml"));
@@ -204,7 +200,6 @@ public class Seats extends Application
                     {
                         e.printStackTrace();
                     }
->>>>>>> 050df41e6b14dec28622d001076111c825730933
                 }
             });
 
