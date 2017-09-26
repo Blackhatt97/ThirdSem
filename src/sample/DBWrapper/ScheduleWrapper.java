@@ -27,7 +27,7 @@ public class ScheduleWrapper {
 
     public void removeMovieSchedule(int scheduleID){
 
-        String sql = "DELETE * FROM schedule WHERE ID='" + scheduleID + "'";
+        String sql = "DELETE FROM schedule WHERE ID='" + scheduleID + "'";
 
         DBConn dbConn = new DBConn();
         Connection conn = dbConn.getConn();
