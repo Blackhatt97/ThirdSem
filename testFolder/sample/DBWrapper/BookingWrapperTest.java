@@ -9,6 +9,7 @@ class BookingWrapperTest {
 
     BookingWrapper br = new BookingWrapper();
 
+
     @Test
     void getAllBookings()
     {
