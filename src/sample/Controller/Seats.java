@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.Main;
 import sample.Model.Booking;
@@ -34,8 +35,10 @@ import java.util.LinkedList;
 /**
  * Created by Jakub on 25.09.2017.
  */
-public class Seats extends Application
+public class Seats
 {
+
+
     String theater1 = "20x__16x\n.20x__16x\n__18x__14x\n.20x__16x\n20x__16x\n.20x__16x\n20x__16x\n";
     String theater2 = "11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n\n11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n";
 
@@ -45,14 +48,22 @@ public class Seats extends Application
 
     BorderPane border = new BorderPane();
 
+    public ArrayList<Integer> getSeatsSelected(){
+        setTakenSeatsFromInnerClass();
+        return takenSeatsRoomA;
+    }
 
+
+    public void setTakenSeatsFromInnerClass(){
+        takenSeatsRoomA = Seat.takenSeatsRoomASeatScope;
+    }
 
 
     static class Seat extends Group
     {
         Color freeColor = Color.rgb(30, 200, 40);
         Color reservedColor = Color.rgb(170, 40,  40);
-
+        static ArrayList<Integer> takenSeatsRoomASeatScope = new ArrayList<>();
         BooleanProperty iamReserved = new SimpleBooleanProperty(false);
         int myNo;
 
@@ -104,7 +115,8 @@ public class Seats extends Application
                 });
                 setOnMouseClicked(m -> {
                     iamReserved.set(!iamReserved.get());
-                    System.out.println("Seat state changed!!!");
+                    System.out.println("Adding seat no: " + no + " to list.");
+                    takenSeatsRoomASeatScope.add(no);
                     System.out.println("saving seat into room " + roomname);
                     if (roomname.equals("theater1")){
                         int room = 1;
@@ -224,13 +236,8 @@ public class Seats extends Application
         node.setBackground(new Background(new BackgroundFill(Color.rgb(80, 80, 80), new CornerRadii(0), new Insets(0))));
     }
 
-
-    @Override
-    public void start(Stage primaryStage) throws Exception
-    {
-
-
-
+    public Seats(){
+        Stage primaryStage = new Stage();
 
         primaryStage.setTitle("Background of Panes");
 
@@ -240,18 +247,51 @@ public class Seats extends Application
 
 
         addTab("1", theater(new Pane(), theater1, takenSeatsRoomA, "theater1"));
-        addTab("2", theater(new Pane(), theater2, takenSeatsRoomB, "theater2"));
+//        addTab("2", theater(new Pane(), theater2, takenSeatsRoomB, "theater2"));
 
         pages.setPageCount(myPages.size());
         pages.setPageFactory(no -> myPages.get(no));
 
         border.setCenter(pages);
 
-        primaryStage.show();
-
-
-
+//        primaryStage.show();
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
+        primaryStage.showAndWait();
     }
 
-    public static void main(String[] args) { launch(args); }
+
+
+//    @Override
+//    public void start(/*Stage primaryStage*/) throws Exception
+//    {
+//
+//
+//
+//        Stage primaryStage = new Stage();
+//
+//        primaryStage.setTitle("Background of Panes");
+//
+//        Pagination pages = new Pagination();
+//        Scene scene = new Scene(border, 1800, 550, Color.WHITE);
+//        primaryStage.setScene(scene);
+//
+//
+//        addTab("1", theater(new Pane(), theater1, takenSeatsRoomA, "theater1"));
+//        addTab("2", theater(new Pane(), theater2, takenSeatsRoomB, "theater2"));
+//
+//        pages.setPageCount(myPages.size());
+//        pages.setPageFactory(no -> myPages.get(no));
+//
+//        border.setCenter(pages);
+//
+////        primaryStage.show();
+//        primaryStage.initModality(Modality.APPLICATION_MODAL);
+//        primaryStage.showAndWait();
+//
+//
+//
+//
+//    }
+
+//    public static void main(String[] args) { launch(args); }
 }

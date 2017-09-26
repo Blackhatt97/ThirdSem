@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sample.DBWrapper.BookingWrapper;
+import sample.DBWrapper.MovieWrapper;
 import sample.DBWrapper.ScheduleWrapper;
 import sample.Model.*;
 
@@ -48,6 +50,8 @@ public class BookingController implements Initializable {
     private TableColumn<Booking, String> movieCol;
     //endregion
 
+    private ObservableList<Movie> allMovies;
+
     public AnchorPane staffAnchor;
 
     private String tempTime;
@@ -55,6 +59,8 @@ public class BookingController implements Initializable {
 
     private Schedule scheduleRoom1;
     private Schedule scheduleRoom2;
+
+    private ArrayList<Integer> currentSeatsSelected;
 
     private void updateWorkScreen(String path) {
 
@@ -71,10 +77,24 @@ public class BookingController implements Initializable {
         if (!name.getText().equals("")) {
             if (date.getValue() != null) {
                 if (!availableMovies.getSelectionModel().getSelectedItem().equals("")) {
-                    // setting seat number array to null for now, change this later pls
-                    Booking newBooking = new Booking(name.getText(), null, date.getValue(), tempTime, tempMovieTitle);
+                    Booking newBooking = new Booking(name.getText(), currentSeatsSelected, date.getValue(), tempTime, tempMovieTitle);
                     BookingData.bookingList.add(newBooking);
-                    //Save to DB
+                    BookingWrapper bookingWrapper = new BookingWrapper();
+                    //dirty cheat
+                    int currMovieId = 0;
+                    String[] scheduleStringId = availableMovies.getSelectionModel().getSelectedItem().split("-");
+                    System.out.println(scheduleStringId[1]);
+                    int scheduleID = Integer.parseInt(scheduleStringId[1]);
+                    for (int i = 0; i < allMovies.size() ; i++) {
+                        if (allMovies.get(i).getTitle().equals(tempMovieTitle)){
+                            currMovieId = allMovies.get(i).getId();
+                        }
+                    }
+                    bookingWrapper.saveBooking(newBooking.getName(),
+                            newBooking.getSeatNumbers(),
+                            currMovieId,
+                            scheduleID
+                            );
 
                     bookingTable.getItems().setAll(BookingData.bookingList);
                     clearFields();
@@ -107,7 +127,7 @@ public class BookingController implements Initializable {
                     if (title.equals("--") || title.equals(""))
                         continue;
                     String time = mto.getMovieBeginTime();
-                    String formattedString = title + " ( " + time + ")";
+                    String formattedString = title + " ( " + time + ") | Schedule ID-" + mto.getId();
                     movieList.add(formattedString);
                 }
             }
@@ -121,7 +141,7 @@ public class BookingController implements Initializable {
                     if (title.equals("--") || title.equals(""))
                         continue;
                     String time = mto.getMovieBeginTime();
-                    String formattedString = title + " ( " + time + ")";
+                    String formattedString = title + " ( " + time + ") | Schedule ID-" + mto.getId();
                     movieList.add(formattedString);
                 }
             }
@@ -132,13 +152,18 @@ public class BookingController implements Initializable {
 
     public void chooseSeatsBtn(ActionEvent actionEvent) {
         Seats seats = new Seats();
-        try
-        {
-            seats.start((Stage)staffAnchor.getScene().getWindow());
-        } catch (Exception e)
-        {
-            e.printStackTrace();
+        ArrayList<Integer> test = seats.getSeatsSelected();
+        for (int i = 0; i < test.size() ; i++) {
+            System.out.println("Seat taken: " + test.get(i));
         }
+        currentSeatsSelected = test;
+        //        try
+//        {
+//            seats.start((Stage)staffAnchor.getScene().getWindow());
+//        } catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
     }
 
     public void goBackBtn(ActionEvent actionEvent) {
@@ -221,6 +246,10 @@ public class BookingController implements Initializable {
 
         scheduleRoom1 = Schedule.scheduleRoomA;
         scheduleRoom2 = Schedule.scheduleRoomB;
+
+        MovieWrapper movieWrapper = new MovieWrapper();
+        allMovies = movieWrapper.getAllMovies();
+        movieWrapper = null;
 
     }
 }

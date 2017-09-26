@@ -3,6 +3,7 @@ package sample.DBWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.Model.Booking;
+import sample.Model.Movie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,36 +79,34 @@ public class BookingWrapper {
         }
 
     }
-    /*public Booking saveBooking(String name , Calendar calendar, ArrayList<Integer> seatNumbers){
+    public Booking saveBooking(String name, ArrayList<Integer> seatNumbers, int movieID, int scheduleId){
 
         String seats = "";
         for (int i = 0; i < seatNumbers.size(); i++) {
             seats += seatNumbers.get(i) + ",";
-
         }
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
-        String sqlTxt = "INSERT INTO " + TABLE + " ( `name`, `seat_numbers`, `date`, `movie`) VALUES (?,?,?,?)";
+        String sqlTxt = "INSERT INTO " + TABLE + " ( `name`, `seats`, `movie_id`, `schedule_id`) VALUES (?,?,?,?)";
         try
         {
+
             PreparedStatement ps = conn.prepareStatement(sqlTxt);
-            ps.setString(1, title);
-            ps.setString(2, description);
-            ps.setInt(3, ageRequirement);
-            ps.setString(4, actors);
-            ps.setInt(5, duration);
+            ps.setString(1, name);
+            ps.setString(2, seats);
+            ps.setInt(3, movieID );
+            ps.setInt(4, scheduleId);
             ps.executeUpdate();
             ps.close();
             conn.close();
-            return new Movie(title,description, ageRequirement,actors, duration);
         }
         catch (SQLException e)
         {
             System.out.println(e);
         }
         return null;
-    }*/
+    }
 
 
 }
