@@ -157,6 +157,8 @@ public class BookingController implements Initializable {
             System.out.println("Seat taken: " + test.get(i));
         }
         currentSeatsSelected = test;
+        currentSeatsValue.setText("Current seats: " + test.size());
+
         //        try
 //        {
 //            seats.start((Stage)staffAnchor.getScene().getWindow());
@@ -206,7 +208,7 @@ public class BookingController implements Initializable {
         Booking booking = bookingTable.getSelectionModel().getSelectedItem();
         name.setText(booking.getName());
         date.setValue(booking.getDate());
-        //currentSeatsValue.setText("Current seats: " + booking.getSeatNumbers().size());
+        currentSeatsValue.setText("Current seats: " + booking.getSeatNumbers().size());
     }
 
     void clearFields() {
