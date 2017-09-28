@@ -11,15 +11,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane fx:id="staffAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.BookingController">
    <children>
       <Button layoutX="23.0" layoutY="459.0" mnemonicParsing="false" onAction="#addBookingBtn" text="Add" />
       <TableView fx:id="bookingTable" layoutX="286.0" layoutY="38.0" onMouseClicked="#onTableClick" prefHeight="403.0" prefWidth="395.0">
         <columns>
-          <TableColumn fx:id="nameCol" prefWidth="92.0" text="Name" />
-          <TableColumn fx:id="dateCol" prefWidth="98.0" text="Date" />
-            <TableColumn fx:id="timeCol" prefWidth="63.0" text="Time" />
-            <TableColumn fx:id="movieCol" prefWidth="124.0" text="Movie" />
+          <TableColumn fx:id="nameCol" prefWidth="92.0" text="Name"><cellValueFactory><PropertyValueFactory property="name"/></cellValueFactory></TableColumn>
+          <TableColumn fx:id="dateCol" prefWidth="98.0" text="Date"><cellValueFactory><PropertyValueFactory property="date"/></cellValueFactory></TableColumn>
+            <TableColumn fx:id="timeCol" prefWidth="63.0" text="Time" ><cellValueFactory><PropertyValueFactory property="time"/></cellValueFactory></TableColumn>
+            <TableColumn fx:id="movieCol" prefWidth="124.0" text="Movie" ><cellValueFactory><PropertyValueFactory property="movieTitle"/></cellValueFactory></TableColumn>
         </columns>
       </TableView>
       <Label layoutX="30.0" layoutY="141.0" text="Name:" />

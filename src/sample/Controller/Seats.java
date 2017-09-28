@@ -45,6 +45,7 @@ public class Seats
     public ArrayList<Integer> takenSeatsRoomA = new ArrayList();
     public ArrayList<Integer> takenSeatsRoomB = new ArrayList();
 
+    private ArrayList<Integer> seatsReserved = new ArrayList<>();
 
     BorderPane border = new BorderPane();
 
@@ -141,13 +142,16 @@ public class Seats
         boolean reserved = false;
 
         //testing arrayList
-        takenSeatsRoomA.add(1);
-        takenSeatsRoomA.add(2);
-        takenSeatsRoomA.add(5);
-
-        takenSeatsRoomB.add(3);
-        takenSeatsRoomB.add(5);
-        takenSeatsRoomB.add(9);
+        for (int i = 0; i < seatsReserved.size() ; i++) {
+            takenSeatsRoomA.add(seatsReserved.get(i));
+        }
+//        takenSeatsRoomA.add(1);
+//        takenSeatsRoomA.add(2);
+//        takenSeatsRoomA.add(5);
+//
+//        takenSeatsRoomB.add(3);
+//        takenSeatsRoomB.add(5);
+//        takenSeatsRoomB.add(9);
 
 
         //inject numbers from DB, if number is there, seat will be red and unclickable (USE VARIABLE "no")
@@ -236,7 +240,9 @@ public class Seats
         node.setBackground(new Background(new BackgroundFill(Color.rgb(80, 80, 80), new CornerRadii(0), new Insets(0))));
     }
 
-    public Seats(){
+    public Seats(ArrayList<Integer> takenSeats){
+        this.seatsReserved = takenSeats;
+
         Stage primaryStage = new Stage();
 
         primaryStage.setTitle("Background of Panes");

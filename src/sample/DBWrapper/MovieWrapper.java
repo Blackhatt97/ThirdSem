@@ -52,6 +52,27 @@ public class MovieWrapper {
         return moviesOL;
     }
 
+    public String getMovieName(int movieId){
+        DBConn dbConn = new DBConn();
+        conn = dbConn.getConn();
+        String title = "";
+        String sqlTxt = "SELECT title FROM movies WHERE id =" + movieId;
+
+        try
+        {
+            PreparedStatement prepStmt = conn.prepareStatement(sqlTxt);
+            ResultSet rs = prepStmt.executeQuery();
+            if (rs.next()){
+                title = rs.getString(1);
+            }
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return title;
+    }
 
     public Movie getMovie(int _id) {
 

@@ -61,6 +61,7 @@ public class BookingController implements Initializable {
     private Schedule scheduleRoom2;
 
     private ArrayList<Integer> currentSeatsSelected;
+    private ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
 
     private void updateWorkScreen(String path) {
 
@@ -90,14 +91,18 @@ public class BookingController implements Initializable {
                             currMovieId = allMovies.get(i).getId();
                         }
                     }
+                    Date movieDate = scheduleWrapper.getScheduleTime(scheduleID);
                     bookingWrapper.saveBooking(newBooking.getName(),
                             newBooking.getSeatNumbers(),
                             currMovieId,
+                            movieDate,
                             scheduleID
                             );
-
-                    bookingTable.getItems().setAll(BookingData.bookingList);
-                    clearFields();
+                    bookingTable.refresh();
+                    currentSeatsSelected.clear();
+                    name.setText("");
+                    fillTable(bookingWrapper, scheduleID);
+//                    clearFields();
                 }
                 else {
                     System.out.println("select a movie pls");
@@ -117,6 +122,9 @@ public class BookingController implements Initializable {
             return;
 
         ObservableList<String> movieList = FXCollections.observableArrayList();
+
+        BookingData.bookingList.clear();
+        bookingTable.refresh();
 
         for (int i = 0; i < scheduleRoom1.getMovieDays().size() ; i++) {
             Date currD = scheduleRoom1.getMovieDays().get(i).getCal().getTime();
@@ -151,12 +159,20 @@ public class BookingController implements Initializable {
     }
 
     public void chooseSeatsBtn(ActionEvent actionEvent) {
-        Seats seats = new Seats();
-        ArrayList<Integer> test = seats.getSeatsSelected();
-        for (int i = 0; i < test.size() ; i++) {
-            System.out.println("Seat taken: " + test.get(i));
+        ArrayList allseatsTaken = new ArrayList();
+        for (int i = 0; i < BookingData.bookingList.size() ; i++) {
+            Booking booking = BookingData.bookingList.get(i);
+            for (int j = 0; j < booking.getSeatNumbers().size() ; j++) {
+                allseatsTaken.add(booking.getSeatNumbers().get(j));
+            }
         }
-        currentSeatsSelected = test;
+
+        Seats seats = new Seats(allseatsTaken);
+        ArrayList<Integer> selSeats = seats.getSeatsSelected();
+        for (int i = 0; i < selSeats.size() ; i++) {
+            System.out.println("Seat taken: " + selSeats.get(i));
+        }
+        currentSeatsSelected = selSeats;
         //        try
 //        {
 //            seats.start((Stage)staffAnchor.getScene().getWindow());
@@ -225,18 +241,40 @@ public class BookingController implements Initializable {
 
     void addChangeListener()
     {
+
+
+
         availableMovies.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
         {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2)
             {
-                if (availableMovies.getItems().size() < 1)
-                    return;
-                String[] strings = availableMovies.getItems().get((Integer) number2).split(" \\( | \\)");
-                tempMovieTitle = strings[0];
-                tempTime = strings[1];
+                if (availableMovies.getItems().size() >= 1) {
+                    String[] strings = availableMovies.getItems().get((Integer) number2).split(" \\( | \\)");
+                    tempMovieTitle = strings[0];
+                    tempTime = strings[1];
+                }
+
+                if (availableMovies.getSelectionModel().getSelectedItem() != null){
+
+                    BookingWrapper bookingWrapper = new BookingWrapper();
+                    String[] scheduleStringId = availableMovies.getItems().get((Integer) number2).split("-");
+                    System.out.println(scheduleStringId[1]);
+                    int scheduleID = Integer.parseInt(scheduleStringId[1]);
+                    fillTable(bookingWrapper, scheduleID);
+
+                }
             }
         });
+    }
+
+    private void fillTable(BookingWrapper bookingWrapper, int scheduleID){
+        ObservableList<Booking> bookings = bookingWrapper.getBookingsForSchedule(scheduleID);
+        System.out.println("SIZE: " + bookings.size());
+        BookingData.bookingList.clear();
+        BookingData.bookingList.addAll(bookings);
+        bookingTable.setItems(BookingData.bookingList);
+        bookingTable.refresh();
     }
 
     @Override
