@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -69,16 +70,34 @@ public class BookingWrapper {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 ArrayList<Integer> seats = new ArrayList<>();
-                Calendar cal = null;
-                cal.setTime(rs.getDate(3));
+                String name = rs.getString(1);
                 String[] str = rs.getString(2).split(",");
                 for (int i = 0; i < str.length; i++) {
                     seats.add(Integer.parseInt(str[i]));
                 }
-                //Fix later
-                //Booking book = new Booking(rs.getString(1), seats, cal, rs.getString(4));
+                LocalDate date = rs.getTimestamp(3).toLocalDateTime().toLocalDate();
+                String time = rs.getTimestamp(3).toLocalDateTime().toLocalTime().toString();
+                String title = "";
 
-                //bookingOL.add(book);
+                String sqlTxt = "SELECT * FROM movies" +
+                        " WHERE `id` = '" + rs.getInt(4) + "';";
+                try {
+                    DBConn dbConn2 = new DBConn();
+                    Connection conn2 = dbConn2.getConn();
+                    PreparedStatement ps2 = conn.prepareStatement(sqlTxt);
+                    ResultSet rs2 = ps2.executeQuery();
+                    while(rs2.next()){
+                        title = rs2.getString(1);
+                    }
+                    conn2.close();
+                }
+                catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                int id = rs.getInt(6);
+                Booking book = new Booking(name, seats, date, time, title);
+
+                bookingOL.add(book);
 
             }
 
