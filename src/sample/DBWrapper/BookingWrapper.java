@@ -23,6 +23,8 @@ public class BookingWrapper {
     private static final String TABLE = "bookings";
     Connection conn = null;
 
+    ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
+
     public BookingWrapper(){
 
     }
@@ -144,15 +146,16 @@ public class BookingWrapper {
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
-        String sqlTxt = "INSERT INTO " + TABLE + " ( `name`, `seats`, `movie_id`, `schedule_id`) VALUES (?,?,?,?)";
+        String sqlTxt = "INSERT INTO " + TABLE + " ( `name`, `seats`, `time`, `movie_id`, `schedule_id`) VALUES (?,?,?,?,?)";
         try
         {
 
             PreparedStatement ps = conn.prepareStatement(sqlTxt);
             ps.setString(1, name);
             ps.setString(2, seats);
-            ps.setInt(3, movieID );
-            ps.setInt(4, scheduleId);
+            ps.setTimestamp(3, time);
+            ps.setInt(4, movieID );
+            ps.setInt(5, scheduleId);
             ps.executeUpdate();
             ps.close();
             conn.close();

@@ -247,6 +247,10 @@ public class BookingController implements Initializable {
         scheduleRoom1 = Schedule.scheduleRoomA;
         scheduleRoom2 = Schedule.scheduleRoomB;
 
+        BookingWrapper bookingWrapper = new BookingWrapper();
+        BookingData.bookingList =  bookingWrapper.getAllBookings();
+        bookingTable.getItems().setAll(BookingData.bookingList);
+
         MovieWrapper movieWrapper = new MovieWrapper();
         allMovies = movieWrapper.getAllMovies();
         movieWrapper = null;
