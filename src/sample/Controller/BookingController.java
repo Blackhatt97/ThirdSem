@@ -13,8 +13,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 import sample.DBWrapper.BookingWrapper;
+<<<<<<< HEAD
+=======
 import sample.DBWrapper.MovieWrapper;
+>>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
+=======
+>>>>>>> parent of b278a12... no message
 import sample.DBWrapper.ScheduleWrapper;
 import sample.Model.*;
 
@@ -60,8 +66,15 @@ public class BookingController implements Initializable {
     private Schedule scheduleRoom1;
     private Schedule scheduleRoom2;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+    private BookingWrapper bookingWrapper = new BookingWrapper();
+=======
     private ArrayList<Integer> currentSeatsSelected;
+>>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
 
+=======
+>>>>>>> parent of b278a12... no message
     private void updateWorkScreen(String path) {
 
         AnchorPane wpAnchor;
@@ -77,7 +90,21 @@ public class BookingController implements Initializable {
         if (!name.getText().equals("")) {
             if (date.getValue() != null) {
                 if (!availableMovies.getSelectionModel().getSelectedItem().equals("")) {
+<<<<<<< HEAD
+                    // setting seat number array to null for now, change this later pls
+<<<<<<< HEAD
+                    //java.sql.Date date =
+                    String movie = availableMovies.getSelectionModel().getSelectedItem();
+                    String[] split = movie.split("/");
+                    String time = split[1];
+                    java.sql.Date date = java.sql.Date.valueOf(datePicker.getValue());
+                    Booking newBooking = new Booking(name.getText(), null, date, time, tempMovieTitle);
+=======
                     Booking newBooking = new Booking(name.getText(), currentSeatsSelected, date.getValue(), tempTime, tempMovieTitle);
+>>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
+=======
+                    Booking newBooking = new Booking(name.getText(), null, date.getValue(), tempTime, tempMovieTitle);
+>>>>>>> parent of b278a12... no message
                     BookingData.bookingList.add(newBooking);
                     BookingWrapper bookingWrapper = new BookingWrapper();
                     //dirty cheat
@@ -127,7 +154,15 @@ public class BookingController implements Initializable {
                     if (title.equals("--") || title.equals(""))
                         continue;
                     String time = mto.getMovieBeginTime();
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    String formattedString = title + " / " + time;
+=======
                     String formattedString = title + " ( " + time + ") | Schedule ID-" + mto.getId();
+>>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
+=======
+                    String formattedString = title + " ( " + time + ")";
+>>>>>>> parent of b278a12... no message
                     movieList.add(formattedString);
                 }
             }
@@ -141,7 +176,15 @@ public class BookingController implements Initializable {
                     if (title.equals("--") || title.equals(""))
                         continue;
                     String time = mto.getMovieBeginTime();
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    String formattedString = title + " / " + time ;
+=======
                     String formattedString = title + " ( " + time + ") | Schedule ID-" + mto.getId();
+>>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
+=======
+                    String formattedString = title + " ( " + time + ")";
+>>>>>>> parent of b278a12... no message
                     movieList.add(formattedString);
                 }
             }
@@ -244,12 +287,26 @@ public class BookingController implements Initializable {
         addChangeListener();
         setupTableColumns();
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+        BookingData.bookingList = bookingWrapper.getAllBookings();
+        bookingTable.getItems().addAll(BookingData.bookingList);
+
+
+=======
+>>>>>>> parent of b278a12... no message
+        ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
+        scheduleRoom1 = scheduleWrapper.getSchedule(1);
+        scheduleRoom2 = scheduleWrapper.getSchedule(2);
+=======
         scheduleRoom1 = Schedule.scheduleRoomA;
         scheduleRoom2 = Schedule.scheduleRoomB;
 
         MovieWrapper movieWrapper = new MovieWrapper();
         allMovies = movieWrapper.getAllMovies();
         movieWrapper = null;
+>>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
 
     }
 }
