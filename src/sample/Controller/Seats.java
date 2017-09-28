@@ -23,12 +23,6 @@ import javafx.stage.Stage;
 import sample.Main;
 import sample.Model.Booking;
 
-<<<<<<< HEAD
-=======
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
->>>>>>> 050df41e6b14dec28622d001076111c825730933
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -37,19 +31,16 @@ import java.util.LinkedList;
  */
 public class Seats extends Application
 {
-    String theater1 = "20x__16x\n.20x__16x\n__18x__14x\n.20x__16x\n20x__16x\n.20x__16x\n20x__16x\n";
+    String theater1 = "2x____________________________16x\n.20x__16x\n__18x__14x\n.20x__16x\n20x__16x\n.20x__16x\n20x__16x\n";
     String theater2 = "11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n\n11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n";
 
     public ArrayList<Integer> takenSeatsRoomA = new ArrayList();
     public ArrayList<Integer> takenSeatsRoomB = new ArrayList();
 
-<<<<<<< HEAD
-=======
     BorderPane border = new BorderPane();
 
 
 
->>>>>>> 050df41e6b14dec28622d001076111c825730933
 
     static class Seat extends Group
     {
@@ -190,9 +181,7 @@ public class Seats extends Application
                 public void handle(javafx.event.ActionEvent event)
                 {
                     System.out.println("pressed");
-<<<<<<< HEAD
-                    //add sheiiiit--
-=======
+
                     try
                     {
                         Parent root = FXMLLoader.load(getClass().getResource("/sample/Views/booking.fxml"));
@@ -204,22 +193,16 @@ public class Seats extends Application
                     {
                         e.printStackTrace();
                     }
->>>>>>> 050df41e6b14dec28622d001076111c825730933
                 }
             });
-
-
-
-
 
             Button buttonSave = new Button("Save");
             buttonSave.setLayoutX(1740);
             buttonSave.setLayoutY(455);
             pane.getChildren().add(buttonSave);
 
-
-
         }
+
         return pane;
     }
 
@@ -233,9 +216,6 @@ public class Seats extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-
-
-
 
         primaryStage.setTitle("Background of Panes");
 
@@ -253,8 +233,6 @@ public class Seats extends Application
         border.setCenter(pages);
 
         primaryStage.show();
-
-
 
     }
 

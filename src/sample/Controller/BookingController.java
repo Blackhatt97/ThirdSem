@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sample.DBWrapper.BookingWrapper;
 import sample.DBWrapper.ScheduleWrapper;
 import sample.Model.*;
 
@@ -24,13 +25,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class BookingController implements Initializable {
+public class BookingController /*implements Initializable*/ {
 
     //region FXML
     @FXML
     private TextField name;
     @FXML
-    private DatePicker date;
+    private DatePicker datePicker;
     @FXML
     private ChoiceBox<String> availableMovies;
     @FXML
@@ -41,7 +42,7 @@ public class BookingController implements Initializable {
     @FXML
     private TableColumn<Booking, String> nameCol;
     @FXML
-    private TableColumn<Booking, String> dateCol;
+    private TableColumn<Booking, java.sql.Date> dateCol;
     @FXML
     private TableColumn<Booking, String> timeCol;
     @FXML
@@ -50,11 +51,15 @@ public class BookingController implements Initializable {
 
     public AnchorPane staffAnchor;
 
+    private ObservableList<Booking> list;
+
     private String tempTime;
     private String tempMovieTitle;
 
     private Schedule scheduleRoom1;
     private Schedule scheduleRoom2;
+
+    private BookingWrapper bookingWrapper = new BookingWrapper();
 
     private void updateWorkScreen(String path) {
 
@@ -69,10 +74,15 @@ public class BookingController implements Initializable {
 
     public void addBookingBtn(ActionEvent actionEvent) {
         if (!name.getText().equals("")) {
-            if (date.getValue() != null) {
+            if (datePicker.getValue() != null) {
                 if (!availableMovies.getSelectionModel().getSelectedItem().equals("")) {
                     // setting seat number array to null for now, change this later pls
-                    Booking newBooking = new Booking(name.getText(), null, date.getValue(), tempTime, tempMovieTitle);
+                    //java.sql.Date date =
+                    String movie = availableMovies.getSelectionModel().getSelectedItem();
+                    String[] split = movie.split("/");
+                    String time = split[1];
+                    java.sql.Date date = java.sql.Date.valueOf(datePicker.getValue());
+                    Booking newBooking = new Booking(name.getText(), null, date, time, tempMovieTitle);
                     BookingData.bookingList.add(newBooking);
                     //Save to DB
 
@@ -93,7 +103,7 @@ public class BookingController implements Initializable {
     }
 
     public void onDateSelect(ActionEvent actionEvent) {
-        if (date.getValue() == null)
+        if (datePicker.getValue() == null)
             return;
 
         ObservableList<String> movieList = FXCollections.observableArrayList();
@@ -101,13 +111,13 @@ public class BookingController implements Initializable {
         for (int i = 0; i < scheduleRoom1.getMovieDays().size() ; i++) {
             Date currD = scheduleRoom1.getMovieDays().get(i).getCal().getTime();
             LocalDate currentDate = currD.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (date.getValue().isEqual(currentDate)){
+            if (datePicker.getValue().isEqual(currentDate)){
                 for (MovieTableObject mto : scheduleRoom1.getMovieDays().get(i).getMovieTableObjects()) {
                     String title = mto.getMovieTitle();
                     if (title.equals("--") || title.equals(""))
                         continue;
                     String time = mto.getMovieBeginTime();
-                    String formattedString = title + " ( " + time + ")";
+                    String formattedString = title + " / " + time;
                     movieList.add(formattedString);
                 }
             }
@@ -115,13 +125,13 @@ public class BookingController implements Initializable {
         for (int i = 0; i < scheduleRoom2.getMovieDays().size() ; i++) {
             Date currD = scheduleRoom2.getMovieDays().get(i).getCal().getTime();
             LocalDate currentDate = currD.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (date.getValue().isEqual(currentDate)){
+            if (datePicker.getValue().isEqual(currentDate)){
                 for (MovieTableObject mto : scheduleRoom2.getMovieDays().get(i).getMovieTableObjects()) {
                     String title = mto.getMovieTitle();
                     if (title.equals("--") || title.equals(""))
                         continue;
                     String time = mto.getMovieBeginTime();
-                    String formattedString = title + " ( " + time + ")";
+                    String formattedString = title + " / " + time ;
                     movieList.add(formattedString);
                 }
             }
@@ -153,12 +163,15 @@ public class BookingController implements Initializable {
 
         Booking booking = bookingTable.getSelectionModel().getSelectedItem();
         booking.setName(name.getText());
-        booking.setDate(date.getValue());
+        booking.setDate(java.sql.Date.valueOf(datePicker.getValue()));
         booking.setTime(tempTime);
         booking.setMovieTitle(tempMovieTitle);
 
         bookingTable.getItems().setAll(BookingData.bookingList);
         clearFields();
+
+        initialize();
+
     }
 
     public void cancelBookingBtn(ActionEvent actionEvent) {
@@ -180,13 +193,14 @@ public class BookingController implements Initializable {
 
         Booking booking = bookingTable.getSelectionModel().getSelectedItem();
         name.setText(booking.getName());
-        date.setValue(booking.getDate());
+        LocalDate date = booking.getDate().toLocalDate();
+        datePicker.setValue(date);
         //currentSeatsValue.setText("Current seats: " + booking.getSeatNumbers().size());
     }
 
     void clearFields() {
         name.setText("");
-        date.setValue(null);
+        datePicker.setValue(null);
         availableMovies.getItems().clear();
     }
 
@@ -196,6 +210,7 @@ public class BookingController implements Initializable {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         movieCol.setCellValueFactory(new PropertyValueFactory<>("movieTitle"));
+
     }
 
     void addChangeListener()
@@ -207,21 +222,30 @@ public class BookingController implements Initializable {
             {
                 if (availableMovies.getItems().size() < 1)
                     return;
-                String[] strings = availableMovies.getItems().get((Integer) number2).split(" \\( | \\)");
+                //String[] strings = availableMovies.getItems().get((Integer) number2).split(" \\( | \\)");
+                String[] strings = availableMovies.getItems().get((Integer) number2).split("/");
                 tempMovieTitle = strings[0];
                 tempTime = strings[1];
             }
         });
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    //@Override
+    public void initialize(/*URL location, ResourceBundle resources*/) {
+
         addChangeListener();
         setupTableColumns();
+
+
+        BookingData.bookingList = bookingWrapper.getAllBookings();
+        bookingTable.getItems().addAll(BookingData.bookingList);
+
 
         ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
         scheduleRoom1 = scheduleWrapper.getSchedule(1);
         scheduleRoom2 = scheduleWrapper.getSchedule(2);
+
+
 
     }
 }
