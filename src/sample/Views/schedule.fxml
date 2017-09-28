@@ -14,7 +14,7 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="scheduleAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ScheduleController">
+<AnchorPane fx:id="scheduleAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ScheduleController">
    <children>
       <DatePicker fx:id="datePicker" layoutX="7.0" layoutY="14.0" prefHeight="29.0" prefWidth="128.0" />
       <ChoiceBox fx:id="choiceBox" layoutX="7.0" layoutY="92.0" prefHeight="27.0" prefWidth="128.0" />

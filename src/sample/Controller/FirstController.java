@@ -40,4 +40,8 @@ public class FirstController {
     public void adminWindow(ActionEvent actionEvent) {
         updateWorkScreen("/sample/Views/main.fxml");
     }
+
+    public void consumableWindow(ActionEvent actionEvent) {
+        updateWorkScreen("/sample/Views/consumable.fxml");
+    }
 }
