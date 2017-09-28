@@ -141,33 +141,6 @@ public class ScheduleWrapper {
 
     public void saveMovieToSchedule (int id, java.util.Date date, int room){
 
-
-        /*String sql2 = "INSERT INTO " + TABLE + " ( `movie_id`, `date`, `room`) VALUES (?,?,?)";
-
-        try
-        {
-
-            java.sql.Timestamp name = new java.sql.Timestamp(date.getTime());
-
-            //String sql = "INSERT INTO `schedule` (`movie_id`, `date`, `room`) VALUES (?,?,?)";
-
-            DBConn dbConn = new DBConn();
-            Connection conn = dbConn.getConn();
-            PreparedStatement preparedStatement = conn.prepareStatement(sql2);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setTimestamp(2, name);
-            preparedStatement.setInt(3, room);
-
-            preparedStatement.executeUpdate(sql2);
-
-            preparedStatement.close();
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-    }*/
-
         DBConn db = new DBConn();
 
         Connection connection = db.getConn();
@@ -196,7 +169,26 @@ public class ScheduleWrapper {
     }
 
 
+    public java.util.Date getScheduleTime(int scheduleId){
+        String query = "SELECT date FROM schedule WHERE id = " + scheduleId ;
+        Connection conn;
+        Date date = null;
+        try {
 
+            DBConn dbConn = new DBConn();
+            conn = dbConn.getConn();
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Timestamp timestamp = resultSet.getTimestamp(1);
+                date = new Date(timestamp.getTime());
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 
    /* public void cancelMovieFromSchedule(MovieDay movieDay, MovieTableObject mto) {
 

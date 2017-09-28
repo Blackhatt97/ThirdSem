@@ -15,6 +15,7 @@ public class Booking {
     private LocalDate date;
     private String time;
     private String movieTitle;
+    private int id;
 
     public Booking(String name, ArrayList<Integer> seatNumbers, LocalDate date, String time, String movieTitle) {
         this.name = name;
@@ -22,8 +23,18 @@ public class Booking {
         this.date = date;
         this.time = time;
         this.movieTitle = movieTitle;
-
     }
+
+    public Booking(String name, ArrayList<Integer> seatNumbers, LocalDate date, String time, String movieTitle, int id) {
+        this.name = name;
+        this.seatNumbers = seatNumbers;
+        this.date = date;
+        this.time = time;
+        this.movieTitle = movieTitle;
+        this.id = id;
+    }
+
+
 
     public String getName() {
         return name;

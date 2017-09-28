@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import sample.Model.Booking;
 import sample.Model.Movie;
 
+import java.awt.print.Book;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,37 @@ public class BookingWrapper {
 
     public BookingWrapper(){
 
+    }
+
+    public ObservableList<Booking> getBookingsForSchedule(int scheduleId){
+        ObservableList<Booking> scheduleBookings = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM bookings WHERE id = " + scheduleId;
+        try{
+            DBConn dbConn = new DBConn();
+            conn = dbConn.getConn();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ArrayList<Integer> seatsTakenForBooking = new ArrayList();
+                String seatsBooked[] = rs.getString(2).split(",");
+                for (int i = 0; i < seatsBooked.length ; i++) {
+                    seatsTakenForBooking.add(Integer.parseInt(seatsBooked[i]));
+                }
+
+//                Booking booking = new Booking(rs.getString(1),
+//                        seatsTakenForBooking,
+//
+//
+//                        )
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
     }
 
     public ObservableList<Booking> getAllBookings() {
