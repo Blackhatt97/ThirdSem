@@ -173,6 +173,8 @@ public class BookingController implements Initializable {
             System.out.println("Seat taken: " + selSeats.get(i));
         }
         currentSeatsSelected = selSeats;
+        currentSeatsValue.setText("Current seats: " + allseatsTaken.size());
+
         //        try
 //        {
 //            seats.start((Stage)staffAnchor.getScene().getWindow());
@@ -222,7 +224,7 @@ public class BookingController implements Initializable {
         Booking booking = bookingTable.getSelectionModel().getSelectedItem();
         name.setText(booking.getName());
         date.setValue(booking.getDate());
-        //currentSeatsValue.setText("Current seats: " + booking.getSeatNumbers().size());
+        currentSeatsValue.setText("Current seats: " + booking.getSeatNumbers().size());
     }
 
     void clearFields() {
@@ -241,9 +243,6 @@ public class BookingController implements Initializable {
 
     void addChangeListener()
     {
-
-
-
         availableMovies.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
         {
             @Override
@@ -284,6 +283,10 @@ public class BookingController implements Initializable {
 
         scheduleRoom1 = Schedule.scheduleRoomA;
         scheduleRoom2 = Schedule.scheduleRoomB;
+
+        BookingWrapper bookingWrapper = new BookingWrapper();
+        BookingData.bookingList =  bookingWrapper.getAllBookings();
+        bookingTable.getItems().setAll(BookingData.bookingList);
 
         MovieWrapper movieWrapper = new MovieWrapper();
         allMovies = movieWrapper.getAllMovies();
