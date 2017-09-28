@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by blackhatt on 25/09/2017.
@@ -117,6 +118,10 @@ public class BookingWrapper {
         for (int i = 0; i < seatNumbers.size(); i++) {
             seats += seatNumbers.get(i) + ",";
         }
+
+        Date date = scheduleWrapper.getScheduleTime(scheduleId);
+        java.sql.Timestamp time = new java.sql.Timestamp(date.getTime());
+
         DBConn dbConn = new DBConn();
         conn = dbConn.getConn();
 
