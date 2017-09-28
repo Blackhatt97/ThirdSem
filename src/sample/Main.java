@@ -21,6 +21,10 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root,700,500));
         primaryStage.show();
 
+        //load from db
+        ScheduleWrapper scheduleWrapper = new ScheduleWrapper();
+        Schedule.scheduleRoomA = scheduleWrapper.getSchedule(1);
+        Schedule.scheduleRoomB = scheduleWrapper.getSchedule(2);
     }
 
 

@@ -12,27 +12,43 @@ class MovieWrapperTest {
 
     MovieWrapper mr = new MovieWrapper();
     @Test
-    void getAllMovies() {
+    void getAllMovies()
+    {
+
         assertNotEquals(null, mr.getAllMovies() );
+
     }
 
     @Test
-    void getMovie() {
+    void getMovie()
+    {
 
         assertNotEquals(null, mr.getMovie(1));
-        assertEquals("as", mr.getMovie(2));
+
     }
 
     @Test
-    void updateMovie() {
+    void updateMovie()
+    {
+
+        assertEquals(true,mr.updateMovie(new Movie("tittle","despacito",18,"no one",152)));
+
     }
 
     @Test
-    void deleteMovie() {
+    void deleteMovie()
+    {
+
+        assertNotEquals(true,1);
+
     }
 
     @Test
-    void saveMovie() {
+    void saveMovie()
+    {
+
+        assertNotEquals(null,mr.saveMovie("tittle","no tan despacito",25,"Santiago Segura",250));
+
     }
 
 }
