@@ -5,8 +5,10 @@ import javafx.collections.ObservableList;
 import sample.Model.Booking;
 import sample.Model.Movie;
 
-import java.sql.*;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -27,33 +29,23 @@ public class BookingWrapper {
         ObservableList<Booking> bookingOL = FXCollections.observableArrayList();
         String sql = "SELECT * FROM bookings";
 
-
         try{
             DBConn dbConn = new DBConn();
             conn = dbConn.getConn();
-
-
-
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-
-                int id = rs.getInt(4);
-                MovieWrapper mw = new MovieWrapper();
-
                 ArrayList<Integer> seats = new ArrayList<>();
-                java.sql.Date date = (rs.getDate(3));
-                java.sql.Time timee = rs.getTime(3);
-                String time = String.valueOf(timee);
-                String[] str = rs.getString(2).split(", ");
+                Calendar cal = null;
+                cal.setTime(rs.getDate(3));
+                String[] str = rs.getString(2).split(",");
                 for (int i = 0; i < str.length; i++) {
                     seats.add(Integer.parseInt(str[i]));
                 }
                 //Fix later
-                Booking book = new Booking(rs.getString(1), seats, date, time, mw.getMovie(id).getTitle());
-                System.out.println(book);
+                //Booking book = new Booking(rs.getString(1), seats, cal, rs.getString(4));
 
-                bookingOL.add(book);
+                //bookingOL.add(book);
 
             }
 

@@ -26,12 +26,19 @@ import sample.Model.Booking;
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 >>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
+=======
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+>>>>>>> 050df41e6b14dec28622d001076111c825730933
+>>>>>>> parent of b278a12... no message
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -41,12 +48,16 @@ import java.util.LinkedList;
 public class Seats
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     String theater1 = "2x____________________________16x\n.20x__16x\n__18x__14x\n.20x__16x\n20x__16x\n.20x__16x\n20x__16x\n";
 =======
 
 
     String theater1 = "20x__16x\n.20x__16x\n__18x__14x\n.20x__16x\n20x__16x\n.20x__16x\n20x__16x\n";
 >>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
+=======
+    String theater1 = "20x__16x\n.20x__16x\n__18x__14x\n.20x__16x\n20x__16x\n.20x__16x\n20x__16x\n";
+>>>>>>> parent of b278a12... no message
     String theater2 = "11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n\n11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n";
 
     public ArrayList<Integer> takenSeatsRoomA = new ArrayList();
@@ -54,8 +65,11 @@ public class Seats
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 
 >>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
+=======
+>>>>>>> parent of b278a12... no message
     BorderPane border = new BorderPane();
 
     public ArrayList<Integer> getSeatsSelected(){
@@ -64,10 +78,14 @@ public class Seats
     }
 
 
+<<<<<<< HEAD
     public void setTakenSeatsFromInnerClass(){
         takenSeatsRoomA = Seat.takenSeatsRoomASeatScope;
     }
 
+=======
+>>>>>>> 050df41e6b14dec28622d001076111c825730933
+>>>>>>> parent of b278a12... no message
 
     static class Seat extends Group
     {
@@ -210,10 +228,15 @@ public class Seats
                 {
                     System.out.println("pressed");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     //add sheiiiit--
 >>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
 
+=======
+                    //add sheiiiit--
+=======
+>>>>>>> parent of b278a12... no message
                     try
                     {
                         Parent root = FXMLLoader.load(getClass().getResource("/sample/Views/booking.fxml"));
@@ -225,16 +248,22 @@ public class Seats
                     {
                         e.printStackTrace();
                     }
+>>>>>>> 050df41e6b14dec28622d001076111c825730933
                 }
             });
+
+
+
+
 
             Button buttonSave = new Button("Save");
             buttonSave.setLayoutX(1740);
             buttonSave.setLayoutY(455);
             pane.getChildren().add(buttonSave);
 
-        }
 
+
+        }
         return pane;
     }
 
@@ -254,6 +283,9 @@ public class Seats
         Stage primaryStage = new Stage();
 >>>>>>> 76d01de1c73415d9f6f54cef96f10c2b1046ccb4
 
+
+
+
         primaryStage.setTitle("Background of Panes");
 
         Pagination pages = new Pagination();
@@ -271,6 +303,8 @@ public class Seats
 
 <<<<<<< HEAD
         primaryStage.show();
+
+
 
     }
 =======

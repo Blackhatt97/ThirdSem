@@ -24,7 +24,7 @@
       </TableView>
       <Label layoutX="30.0" layoutY="141.0" text="Name:" />
       <TextField fx:id="name" layoutX="80.0" layoutY="136.0" prefHeight="27.0" prefWidth="187.0" />
-      <DatePicker fx:id="datePicker" layoutX="76.0" layoutY="188.0" onAction="#onDateSelect" prefHeight="31.0" prefWidth="187.0" />
+      <DatePicker fx:id="date" layoutX="76.0" layoutY="188.0" onAction="#onDateSelect" prefHeight="31.0" prefWidth="187.0" />
       <Label layoutX="33.0" layoutY="195.0" text="Date:" />
       <Label layoutX="24.0" layoutY="242.0" text="Movie:" />
       <Button layoutX="629.0" layoutY="459.0" mnemonicParsing="false" onAction="#goBackBtn" text="Back" />

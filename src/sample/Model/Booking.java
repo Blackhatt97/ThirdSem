@@ -12,11 +12,11 @@ public class Booking {
     private String name;
     private ArrayList<Integer> seatNumbers = null;
     private Calendar cal;
-    private java.sql.Date date;
+    private LocalDate date;
     private String time;
     private String movieTitle;
 
-    public Booking(String name, ArrayList<Integer> seatNumbers, java.sql.Date date, String time,  String movieTitle) {
+    public Booking(String name, ArrayList<Integer> seatNumbers, LocalDate date, String time, String movieTitle) {
         this.name = name;
         this.seatNumbers = seatNumbers;
         this.date = date;
@@ -57,12 +57,12 @@ public class Booking {
         this.movieTitle = movieTitle;
     }
 
-    public java.sql.Date getDate()
+    public LocalDate getDate()
     {
         return date;
     }
 
-    public void setDate(java.sql.Date date)
+    public void setDate(LocalDate date)
     {
         this.date = date;
     }
@@ -75,18 +75,5 @@ public class Booking {
     public void setTime(String time)
     {
         this.time = time;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Booking{" +
-                "name='" + name + '\'' +
-                ", seatNumbers=" + seatNumbers +
-                ", cal=" + cal +
-                ", date=" + date +
-                ", time='" + time + '\'' +
-                ", movieTitle='" + movieTitle + '\'' +
-                '}';
     }
 }
