@@ -47,7 +47,7 @@ public class ScheduleWrapper {
     }
 
     public Schedule getSchedule(int roomNo) {
-
+        System.out.println("Loading schedule " + roomNo + "............................................");
         Schedule schedule = null;
         ArrayList<MovieDay> movieDays = new ArrayList<>();
         String sql = "SELECT * FROM schedule WHERE room=" + roomNo + " ORDER BY `date` ASC";
@@ -86,8 +86,6 @@ public class ScheduleWrapper {
 
                     Calendar movCal = (Calendar) currentDateCal.clone();
                     movieDay = new MovieDay(movCal);
-                    System.out.println("NEW DAY ------------" + currentDateCal.getTime().toString() + " is after "
-                            + caleTemp.getTime().toString());
 
                 }
 
@@ -98,11 +96,8 @@ public class ScheduleWrapper {
                         Movie movie = movieWrapper.getMovie(resultSet.getInt(2));
                         movieDay.getMovieTableObjects().get(i).setMovieTitle(movie.getTitle());
                         movieDay.getMovieTableObjects().get(i).setId(resultSet.getInt(1));
-                        System.out.println("TITLE: " + movieDay.getMovieTableObjects().get(i).getMovieTitle() +
-                        " TIME: " + movieDay.getMovieTableObjects().get(i).getMovieBeginTimeUtil().toString());
                         double duration = movie.getDuration() + 30;
                         double hours = round(duration/60, 0);
-                        System.out.println("HOURS: " + hours + " MINUTES: " + duration);
                         for (int j = 1; j <= hours ; j++) {
                             if ((i + j) < movieDay.getMovieTableObjects().size()) {
                                 movieDay.getMovieTableObjects().get(i + j).setMovieTitle("--");
@@ -126,8 +121,8 @@ public class ScheduleWrapper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("WRAPSIZE: " + movieDays.size());
         schedule = new Schedule(movieDays);
+        System.out.println("Schedule " + roomNo + " load complete.");
         return schedule;
     }
 

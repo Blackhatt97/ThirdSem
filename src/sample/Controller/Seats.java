@@ -38,7 +38,6 @@ import java.util.LinkedList;
 public class Seats
 {
 
-
     String theater1 = "20x__16x\n.20x__16x\n__18x__14x\n.20x__16x\n20x__16x\n.20x__16x\n20x__16x\n";
     String theater2 = "11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n\n11x_10x_11x\n11x_10x_11x\n11x_10x_11x\n";
 
@@ -67,6 +66,7 @@ public class Seats
         static ArrayList<Integer> takenSeatsRoomASeatScope = new ArrayList<>();
         BooleanProperty iamReserved = new SimpleBooleanProperty(false);
         int myNo;
+        private int seatCount = 0;
 
 
         /**
@@ -115,16 +115,23 @@ public class Seats
                     pillow.setFill(n ? reservedColor : freeColor);
                 });
                 setOnMouseClicked(m -> {
-                    iamReserved.set(!iamReserved.get());
-                    System.out.println("Adding seat no: " + no + " to list.");
-                    takenSeatsRoomASeatScope.add(no);
-                    System.out.println("saving seat into room " + roomname);
-                    if (roomname.equals("theater1")){
-                        int room = 1;
-                    } else {
-                        int room = 2;
+                    if (takenSeatsRoomASeatScope.contains(no)) {
+                        takenSeatsRoomASeatScope.remove((Integer)no);
+                        System.out.println("removing seat no: " + no);
+                        seatCount--;
                     }
-                    //save or delete number from ??ArrayList??
+                    else {
+                        if (seatCount < 10) {
+                            System.out.println("Adding seat no: " + no + " to list.");
+                            takenSeatsRoomASeatScope.add(no);
+                            seatCount++;
+                        }
+                        else {
+                            System.out.println("cant have more than 10 seats for now");
+                        }
+                    }
+
+                    iamReserved.set(!iamReserved.get());
                 });
 
             }
@@ -145,14 +152,6 @@ public class Seats
         for (int i = 0; i < seatsReserved.size() ; i++) {
             takenSeatsRoomA.add(seatsReserved.get(i));
         }
-//        takenSeatsRoomA.add(1);
-//        takenSeatsRoomA.add(2);
-//        takenSeatsRoomA.add(5);
-//
-//        takenSeatsRoomB.add(3);
-//        takenSeatsRoomB.add(5);
-//        takenSeatsRoomB.add(9);
-
 
         //inject numbers from DB, if number is there, seat will be red and unclickable (USE VARIABLE "no")
 
@@ -193,43 +192,6 @@ public class Seats
             count = 0;
             x = 20;
 
-            Button buttonBack = new Button("Back");
-            buttonBack.setLayoutX(10);
-            buttonBack.setLayoutY(455);
-            pane.getChildren().add(buttonBack);
-            buttonBack.setOnAction(new EventHandler<javafx.event.ActionEvent>()
-            {
-                @Override
-                public void handle(javafx.event.ActionEvent event)
-                {
-                    System.out.println("pressed");
-                    //add sheiiiit--
-
-                    try
-                    {
-                        Parent root = FXMLLoader.load(getClass().getResource("/sample/Views/booking.fxml"));
-                        Stage primaryStage = (Stage)buttonBack.getScene().getWindow();
-                        primaryStage.setTitle("Hello Bogdan"); //change title later
-                        primaryStage.setScene(new Scene(root,700,500));
-                        primaryStage.show();
-                    } catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-
-
-
-
-            Button buttonSave = new Button("Save");
-            buttonSave.setLayoutX(1740);
-            buttonSave.setLayoutY(455);
-            pane.getChildren().add(buttonSave);
-
-
-
         }
         return pane;
     }
@@ -253,14 +215,12 @@ public class Seats
 
 
         addTab("1", theater(new Pane(), theater1, takenSeatsRoomA, "theater1"));
-//        addTab("2", theater(new Pane(), theater2, takenSeatsRoomB, "theater2"));
 
         pages.setPageCount(myPages.size());
         pages.setPageFactory(no -> myPages.get(no));
 
         border.setCenter(pages);
 
-//        primaryStage.show();
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.showAndWait();
     }

@@ -6,10 +6,7 @@ import sample.Model.Booking;
 import sample.Model.Movie;
 
 import java.awt.print.Book;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -30,6 +27,7 @@ public class BookingWrapper {
     }
 
     public ObservableList<Booking> getBookingsForSchedule(int scheduleId){
+        System.out.println("Getting bookings for current selected movie............................................");
         ObservableList<Booking> scheduleBookings = FXCollections.observableArrayList();
         String sql = "SELECT * FROM bookings WHERE schedule_id = " + scheduleId;
         try{
@@ -45,16 +43,17 @@ public class BookingWrapper {
                 }
                 Date date = scheduleWrapper.getScheduleTime(scheduleId);
                 LocalDate ld = new java.sql.Date(date.getTime()).toLocalDate();
+                String time = rs.getTimestamp(3).toLocalDateTime().toLocalTime().toString();
 
 
                 String title = movieWrapper.getMovieName(rs.getInt(4));
                 Booking booking = new Booking(rs.getString(1),
                         seatsTakenForBooking,
                         ld,
-                        date.toString(),
-                        title,
-                        rs.getInt(6)
+                        time,
+                        title
                         );
+                booking.setId(rs.getInt(6));
                 scheduleBookings.add(booking);
             }
 
@@ -63,12 +62,11 @@ public class BookingWrapper {
             e.printStackTrace();
         }
 
-
         return scheduleBookings;
     }
 
     public ObservableList<Booking> getAllBookings() {
-
+        System.out.println("Loading all bookings............................................");
         ObservableList<Booking> bookingOL = FXCollections.observableArrayList();
         String sql = "SELECT * FROM bookings";
 
@@ -105,12 +103,13 @@ public class BookingWrapper {
                 }
                 int id = rs.getInt(6);
                 Booking book = new Booking(name, seats, date, time, title);
-
+                book.setId(id);
                 bookingOL.add(book);
 
             }
 
             conn.close();
+            System.out.println("Booking load complete.");
             return bookingOL;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,5 +171,41 @@ public class BookingWrapper {
         return null;
     }
 
+    public boolean updateBooking(Booking booking, int movieID, int scheduleID) {
+        DBConn dbConn = new DBConn();
+        conn = dbConn.getConn();
 
+        String name = booking.getName();
+        ArrayList<Integer> seatNumbers = booking.getSeatNumbers();
+        String seats = "";
+        for (int i = 0; i < seatNumbers.size(); i++) {
+            seats += seatNumbers.get(i) + ",";
+        }
+        LocalDate localDate = booking.getDate();
+        int id = booking.getId();
+
+        String sqlTxt = "UPDATE " + TABLE + " SET name = ?, seats = ?, movie_id = ?," +
+                "time = ?, schedule_id = ?" +
+                " WHERE id = ?;";
+        try
+        {
+            Timestamp sq = Timestamp.valueOf(localDate.atStartOfDay());
+
+            PreparedStatement ps = conn.prepareStatement(sqlTxt);
+            ps.setString(1, name);
+            ps.setString(2, seats);
+            ps.setInt(3, movieID );
+            ps.setTimestamp(4, sq);
+            ps.setInt(5, scheduleID);
+            ps.setInt(6,id);
+            ps.execute();
+            conn.close();
+            return true;
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e);
+            return false;
+        }
+    }
 }
