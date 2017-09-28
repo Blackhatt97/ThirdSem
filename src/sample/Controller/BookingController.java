@@ -173,7 +173,7 @@ public class BookingController implements Initializable {
             System.out.println("Seat taken: " + selSeats.get(i));
         }
         currentSeatsSelected = selSeats;
-        currentSeatsValue.setText("Current seats: " + allseatsTaken.size());
+        currentSeatsValue.setText("Current seats: " + selSeats.size());
 
         //        try
 //        {
@@ -248,21 +248,28 @@ public class BookingController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2)
             {
-                if (availableMovies.getItems().size() >= 1) {
-                    String[] strings = availableMovies.getItems().get((Integer) number2).split(" \\( | \\)");
-                    tempMovieTitle = strings[0];
-                    tempTime = strings[1];
+                try {
+                    if (availableMovies.getItems().size() >= 1) {
+
+                        String[] strings = availableMovies.getItems().get((Integer) number2).split(" \\( | \\)");
+                        tempMovieTitle = strings[0];
+                        tempTime = strings[1];
+
+                    }
+
+                    if (availableMovies.getSelectionModel().getSelectedItem() != null){
+
+                        BookingWrapper bookingWrapper = new BookingWrapper();
+                        String[] scheduleStringId = availableMovies.getItems().get((Integer) number2).split("-");
+                        System.out.println(scheduleStringId[1]);
+                        int scheduleID = Integer.parseInt(scheduleStringId[1]);
+                        fillTable(bookingWrapper, scheduleID);
+
+                    }
+                } catch (ArrayIndexOutOfBoundsException e){
+                    //gotta catch em all
                 }
 
-                if (availableMovies.getSelectionModel().getSelectedItem() != null){
-
-                    BookingWrapper bookingWrapper = new BookingWrapper();
-                    String[] scheduleStringId = availableMovies.getItems().get((Integer) number2).split("-");
-                    System.out.println(scheduleStringId[1]);
-                    int scheduleID = Integer.parseInt(scheduleStringId[1]);
-                    fillTable(bookingWrapper, scheduleID);
-
-                }
             }
         });
     }
